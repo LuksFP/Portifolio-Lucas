@@ -1,0 +1,139 @@
+/* Contact Section Styles */
+.contact {
+  padding: var(--section-padding);
+  background: hsl(var(--muted));
+}
+
+.contact-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: hsl(var(--card));
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  text-align: left;
+}
+
+.contact-link:hover {
+  transform: translateX(8px);
+  box-shadow: var(--shadow-md);
+}
+
+.contact-link-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.contact-link-icon svg {
+  width: 24px;
+  height: 24px;
+  color: hsl(0 0% 100%);
+}
+
+.contact-link-content {
+  flex: 1;
+}
+
+.contact-link-label {
+  font-size: 0.85rem;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: 0.25rem;
+}
+
+.contact-link-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: hsl(var(--card-foreground));
+}
+
+.contact-link-arrow {
+  color: hsl(var(--muted-foreground));
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.contact-link:hover .contact-link-arrow {
+  transform: translateX(4px);
+  color: hsl(var(--color-primary));
+}
+
+/* CTA Button */
+.contact-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  background: var(--gradient-primary);
+  color: hsl(0 0% 100%);
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 20px hsl(var(--color-primary) / 0.4);
+  transition: all var(--transition-normal);
+}
+
+.contact-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px hsl(var(--color-primary) / 0.5);
+}
+
+.contact-cta:active {
+  transform: translateY(-1px);
+}
+
+/* Footer */
+.footer {
+  padding: 2rem;
+  background: hsl(var(--navbar-bg));
+  text-align: center;
+}
+
+.footer-text {
+  color: hsl(var(--navbar-text) / 0.7);
+  font-size: 0.9rem;
+}
+
+.footer-text span {
+  color: hsl(var(--navbar-text));
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 0 1rem;
+  }
+
+  .contact-link {
+    padding: 1rem;
+  }
+
+  .contact-link-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .contact-link-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+}
