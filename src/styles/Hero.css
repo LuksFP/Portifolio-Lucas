@@ -10,16 +10,6 @@
   padding-top: 80px;
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(circle at 20% 80%, hsl(270 60% 40% / 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, hsl(230 80% 50% / 0.3) 0%, transparent 50%);
-  pointer-events: none;
-}
-
 .hero::after {
   content: '';
   position: absolute;
@@ -29,10 +19,99 @@
   height: 150px;
   background: linear-gradient(to top, hsl(var(--background)), transparent);
   pointer-events: none;
+  z-index: 2;
 }
 
 [data-theme="dark"] .hero::after {
   background: linear-gradient(to top, hsl(var(--background)), transparent);
+}
+
+/* Parallax Container */
+.hero-parallax {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Parallax Orbs */
+.parallax-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.6;
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+.parallax-orb-1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, hsl(270 70% 55% / 0.5) 0%, transparent 70%);
+  top: 10%;
+  left: -5%;
+  animation: floatOrb1 8s ease-in-out infinite;
+}
+
+.parallax-orb-2 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, hsl(200 90% 60% / 0.4) 0%, transparent 70%);
+  top: 60%;
+  right: -5%;
+  animation: floatOrb2 10s ease-in-out infinite;
+}
+
+.parallax-orb-3 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, hsl(320 70% 50% / 0.3) 0%, transparent 70%);
+  bottom: 20%;
+  left: 30%;
+  animation: floatOrb3 12s ease-in-out infinite;
+}
+
+/* Parallax Grid */
+.parallax-grid {
+  position: absolute;
+  inset: -50%;
+  background-image: 
+    linear-gradient(hsl(0 0% 100% / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(0 0% 100% / 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* Parallax Glow */
+.parallax-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  margin-top: -300px;
+  margin-left: -300px;
+  background: radial-gradient(circle, hsl(230 80% 60% / 0.2) 0%, transparent 60%);
+  will-change: transform;
+}
+
+/* Floating Animations */
+@keyframes floatOrb1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-40px, 30px) scale(1.1); }
+  66% { transform: translate(20px, -30px) scale(0.9); }
+}
+
+@keyframes floatOrb3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -40px) scale(1.08); }
 }
 
 .hero-content {
@@ -41,6 +120,7 @@
   text-align: center;
   max-width: 800px;
   padding: 2rem;
+  will-change: transform, opacity;
 }
 
 .hero-greeting {
