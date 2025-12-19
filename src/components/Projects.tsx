@@ -1,10 +1,15 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import { ExternalLink, Github } from 'lucide-react';
 import '../styles/Projects.css';
+import '../styles/ScrollReveal.css';
 
 const Projects: React.FC = () => {
   const { t } = useLanguage();
+  
+  const titleReveal = useScrollReveal({ threshold: 0.2 });
+  const gridReveal = useScrollReveal({ threshold: 0.1 });
 
   const projects = [
     {
@@ -33,10 +38,18 @@ const Projects: React.FC = () => {
   return (
     <section id="projects" className="projects section">
       <div className="container">
-        <h2 className="section-title">{t.projects.title}</h2>
-        <p className="section-subtitle">{t.projects.subtitle}</p>
+        <div 
+          ref={titleReveal.ref as React.RefObject<HTMLDivElement>}
+          className={`reveal ${titleReveal.isVisible ? 'visible' : ''}`}
+        >
+          <h2 className="section-title">{t.projects.title}</h2>
+          <p className="section-subtitle">{t.projects.subtitle}</p>
+        </div>
 
-        <div className="projects-grid">
+        <div 
+          ref={gridReveal.ref as React.RefObject<HTMLDivElement>}
+          className={`projects-grid stagger-children ${gridReveal.isVisible ? 'visible' : ''}`}
+        >
           {projects.map((project, index) => (
             <article key={index} className="project-card">
               <div className="project-image">
