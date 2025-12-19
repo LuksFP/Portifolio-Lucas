@@ -1,9 +1,14 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import '../styles/Skills.css';
+import '../styles/ScrollReveal.css';
 
 const Skills: React.FC = () => {
   const { t } = useLanguage();
+  
+  const titleReveal = useScrollReveal({ threshold: 0.2 });
+  const gridReveal = useScrollReveal({ threshold: 0.1 });
 
   const skills = [
     { name: 'React', icon: '⚛️' },
@@ -23,16 +28,20 @@ const Skills: React.FC = () => {
   return (
     <section id="skills" className="skills section">
       <div className="container">
-        <h2 className="section-title">{t.skills.title}</h2>
-        <p className="section-subtitle">{t.skills.subtitle}</p>
+        <div 
+          ref={titleReveal.ref as React.RefObject<HTMLDivElement>}
+          className={`reveal ${titleReveal.isVisible ? 'visible' : ''}`}
+        >
+          <h2 className="section-title">{t.skills.title}</h2>
+          <p className="section-subtitle">{t.skills.subtitle}</p>
+        </div>
 
-        <div className="skills-grid">
+        <div 
+          ref={gridReveal.ref as React.RefObject<HTMLDivElement>}
+          className={`skills-grid stagger-children ${gridReveal.isVisible ? 'visible' : ''}`}
+        >
           {skills.map((skill, index) => (
-            <div 
-              key={index} 
-              className="skill-card"
-              style={{ animationDelay: `${index * 0.05}s` }}
-            >
+            <div key={index} className="skill-card">
               <div className="skill-icon">{skill.icon}</div>
               <span className="skill-name">{skill.name}</span>
             </div>
