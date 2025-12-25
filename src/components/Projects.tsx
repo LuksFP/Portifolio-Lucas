@@ -1,39 +1,51 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import { ExternalLink, Github } from 'lucide-react';
+import { useProjects } from '../hooks/useProjects';
+import { ExternalLink, Github, Loader2 } from 'lucide-react';
 import '../styles/Projects.css';
 import '../styles/ScrollReveal.css';
 
 const Projects: React.FC = () => {
   const { t } = useLanguage();
+  const { projects: dbProjects, loading } = useProjects();
   
   const titleReveal = useScrollReveal({ threshold: 0.2 });
   const gridReveal = useScrollReveal({ threshold: 0.1 });
 
-  const projects = [
-    {
-      ...t.projects.items[0],
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
-      tech: ['React', 'TypeScript', 'Chart.js', 'Tailwind'],
-      github: 'https://github.com',
-      demo: 'https://demo.com',
-    },
-    {
-      ...t.projects.items[1],
-      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop',
-      tech: ['React', 'Redux', 'Node.js', 'MongoDB'],
-      github: 'https://github.com',
-      demo: 'https://demo.com',
-    },
-    {
-      ...t.projects.items[2],
-      image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=600&h=400&fit=crop',
-      tech: ['React', 'API REST', 'CSS3', 'Geolocation'],
-      github: 'https://github.com',
-      demo: 'https://demo.com',
-    },
-  ];
+  // Use database projects if available, otherwise fallback to static
+  const projects = dbProjects.length > 0 
+    ? dbProjects.map(p => ({
+        title: p.title,
+        description: p.description,
+        image: p.image_url || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
+        tech: p.tech_stack || [],
+        github: p.github_url || '',
+        demo: p.demo_url || '',
+      }))
+    : [
+        {
+          ...t.projects.items[0],
+          image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
+          tech: ['React', 'TypeScript', 'Chart.js', 'Tailwind'],
+          github: 'https://github.com',
+          demo: 'https://demo.com',
+        },
+        {
+          ...t.projects.items[1],
+          image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop',
+          tech: ['React', 'Redux', 'Node.js', 'MongoDB'],
+          github: 'https://github.com',
+          demo: 'https://demo.com',
+        },
+        {
+          ...t.projects.items[2],
+          image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=600&h=400&fit=crop',
+          tech: ['React', 'API REST', 'CSS3', 'Geolocation'],
+          github: 'https://github.com',
+          demo: 'https://demo.com',
+        },
+      ];
 
   return (
     <section id="projects" className="projects section">
@@ -46,6 +58,11 @@ const Projects: React.FC = () => {
           <p className="section-subtitle">{t.projects.subtitle}</p>
         </div>
 
+        {loading ? (
+          <div className="flex justify-center py-12">
+            <Loader2 className="w-8 h-8 animate-spin text-[hsl(var(--color-primary))]" />
+          </div>
+        ) : (
         <div 
           ref={gridReveal.ref as React.RefObject<HTMLDivElement>}
           className={`projects-grid stagger-children ${gridReveal.isVisible ? 'visible' : ''}`}
@@ -87,6 +104,7 @@ const Projects: React.FC = () => {
             </article>
           ))}
         </div>
+        )}
       </div>
     </section>
   );
