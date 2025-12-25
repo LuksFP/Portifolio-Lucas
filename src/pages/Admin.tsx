@@ -10,12 +10,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { ArrowLeft, Plus, Pencil, Trash2, Github, ExternalLink, LogOut } from 'lucide-react';
 
+// Email autorizado para acessar o admin
+const ADMIN_EMAIL = 'lucas.kfrancopinheiro@gmail.com';
+
 const Admin: React.FC = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, loading: authLoading, signOut } = useAuth();
+  const { user, isAuthenticated, loading: authLoading, signOut } = useAuth();
   const { projects, loading, createProject, updateProject, deleteProject } = useProjects();
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const isAdmin = user?.email === ADMIN_EMAIL;
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [formData, setFormData] = useState<ProjectInput>({
     title: '',
@@ -28,10 +32,15 @@ const Admin: React.FC = () => {
   const [techInput, setTechInput] = useState('');
 
   useEffect(() => {
-    if (!authLoading && !isAuthenticated) {
-      navigate('/auth');
+    if (!authLoading) {
+      if (!isAuthenticated) {
+        navigate('/auth');
+      } else if (!isAdmin) {
+        // Usuário logado mas não é o admin
+        navigate('/');
+      }
     }
-  }, [isAuthenticated, authLoading, navigate]);
+  }, [isAuthenticated, authLoading, isAdmin, navigate]);
 
   const resetForm = () => {
     setFormData({

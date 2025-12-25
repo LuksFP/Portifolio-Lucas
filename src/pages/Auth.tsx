@@ -8,6 +8,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import { z } from 'zod';
+import { useToast } from '@/hooks/use-toast';
+
+// Email autorizado para acessar o admin
+const ADMIN_EMAIL = 'lucas.kfrancopinheiro@gmail.com';
 
 const authSchema = z.object({
   email: z.string().trim().email('Email inválido').max(255),
@@ -15,6 +19,7 @@ const authSchema = z.object({
 });
 
 const Auth: React.FC = () => {
+  const { toast } = useToast();
   const navigate = useNavigate();
   const { signIn, signUp, isAuthenticated, loading: authLoading } = useAuth();
   
@@ -51,6 +56,16 @@ const Auth: React.FC = () => {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
+
+    // Verificar se é o email autorizado
+    if (email.trim().toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+      toast({
+        title: 'Acesso negado',
+        description: 'Este email não tem permissão para acessar o admin.',
+        variant: 'destructive',
+      });
+      return;
+    }
     
     setLoading(true);
     try {
@@ -65,6 +80,16 @@ const Auth: React.FC = () => {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
+
+    // Verificar se é o email autorizado
+    if (email.trim().toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+      toast({
+        title: 'Acesso negado',
+        description: 'Este email não tem permissão para criar conta.',
+        variant: 'destructive',
+      });
+      return;
+    }
     
     setLoading(true);
     try {
