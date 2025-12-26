@@ -4,9 +4,8 @@ import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft, Lock, Mail, Sparkles } from 'lucide-react';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 
@@ -105,151 +104,209 @@ const Auth: React.FC = () => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[hsl(var(--background))]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[hsl(var(--color-primary))]" />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[hsl(230,25%,8%)] via-[hsl(250,30%,12%)] to-[hsl(270,25%,10%)]">
+        <div className="relative">
+          <div className="w-12 h-12 rounded-full border-2 border-transparent border-t-[hsl(var(--color-primary))] animate-spin" />
+          <div className="absolute inset-0 w-12 h-12 rounded-full border-2 border-transparent border-b-[hsl(var(--color-secondary))] animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }} />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[hsl(var(--background))] p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+      {/* Background with gradient and effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[hsl(230,25%,8%)] via-[hsl(250,30%,12%)] to-[hsl(270,25%,10%)]" />
+      
+      {/* Animated orbs */}
+      <div className="absolute top-1/4 -left-32 w-64 h-64 bg-[hsl(var(--color-primary)/0.15)] rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-1/4 -right-32 w-64 h-64 bg-[hsl(var(--color-secondary)/0.15)] rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+      
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 opacity-5" style={{ 
+        backgroundImage: 'linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)',
+        backgroundSize: '50px 50px'
+      }} />
+
+      {/* Back button */}
       <Button
         variant="ghost"
-        className="absolute top-4 left-4 text-[hsl(var(--foreground))]"
+        className="absolute top-6 left-6 text-white/70 hover:text-white hover:bg-white/10 z-10"
         onClick={() => navigate('/')}
       >
         <ArrowLeft size={20} className="mr-2" />
         Voltar
       </Button>
 
-      <Card className="w-full max-w-md bg-[hsl(var(--card))] border-[hsl(var(--border))]">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold text-[hsl(var(--foreground))]">
-            Admin
-          </CardTitle>
-          <CardDescription className="text-[hsl(var(--muted-foreground))]">
-            Gerencie seus projetos do portfólio
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Tabs defaultValue="login">
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="register">Cadastro</TabsTrigger>
+      {/* Main card */}
+      <div className="relative z-10 w-full max-w-md mx-4">
+        {/* Card glow effect */}
+        <div className="absolute -inset-1 bg-gradient-to-r from-[hsl(var(--color-primary)/0.5)] via-[hsl(var(--color-secondary)/0.5)] to-[hsl(var(--color-primary)/0.5)] rounded-2xl blur-xl opacity-30" />
+        
+        <div className="relative bg-[hsl(230,25%,12%)]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-[hsl(var(--color-primary))] to-[hsl(var(--color-secondary))] mb-4 shadow-lg shadow-[hsl(var(--color-primary)/0.3)]">
+              <Sparkles className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-2xl font-bold text-white mb-2">
+              Área Administrativa
+            </h1>
+            <p className="text-white/60 text-sm">
+              Acesso restrito para gerenciamento
+            </p>
+          </div>
+
+          <Tabs defaultValue="login" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-6 bg-white/5 p-1 rounded-lg">
+              <TabsTrigger 
+                value="login" 
+                className="rounded-md data-[state=active]:bg-gradient-to-r data-[state=active]:from-[hsl(var(--color-primary))] data-[state=active]:to-[hsl(var(--color-secondary))] data-[state=active]:text-white text-white/60 transition-all"
+              >
+                Login
+              </TabsTrigger>
+              <TabsTrigger 
+                value="register"
+                className="rounded-md data-[state=active]:bg-gradient-to-r data-[state=active]:from-[hsl(var(--color-primary))] data-[state=active]:to-[hsl(var(--color-secondary))] data-[state=active]:text-white text-white/60 transition-all"
+              >
+                Cadastro
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="login">
-              <form onSubmit={handleSignIn} className="space-y-4">
+              <form onSubmit={handleSignIn} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="login-email" className="text-[hsl(var(--foreground))]">
+                  <Label htmlFor="login-email" className="text-white/80 text-sm font-medium">
                     Email
                   </Label>
-                  <Input
-                    id="login-email"
-                    type="email"
-                    placeholder="seu@email.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="bg-[hsl(var(--muted))] border-[hsl(var(--border))] text-[hsl(var(--foreground))]"
-                  />
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
+                    <Input
+                      id="login-email"
+                      type="email"
+                      placeholder="seu@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30 pl-10 h-12 rounded-xl focus:border-[hsl(var(--color-primary))] focus:ring-1 focus:ring-[hsl(var(--color-primary))]"
+                    />
+                  </div>
                   {errors.email && (
-                    <p className="text-sm text-red-500">{errors.email}</p>
+                    <p className="text-sm text-red-400">{errors.email}</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="login-password" className="text-[hsl(var(--foreground))]">
+                  <Label htmlFor="login-password" className="text-white/80 text-sm font-medium">
                     Senha
                   </Label>
                   <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                     <Input
                       id="login-password"
                       type={showPassword ? 'text' : 'password'}
                       placeholder="••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="bg-[hsl(var(--muted))] border-[hsl(var(--border))] text-[hsl(var(--foreground))] pr-10"
+                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30 pl-10 pr-10 h-12 rounded-xl focus:border-[hsl(var(--color-primary))] focus:ring-1 focus:ring-[hsl(var(--color-primary))]"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[hsl(var(--muted-foreground))]"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/70 transition-colors"
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
                   </div>
                   {errors.password && (
-                    <p className="text-sm text-red-500">{errors.password}</p>
+                    <p className="text-sm text-red-400">{errors.password}</p>
                   )}
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full bg-[hsl(var(--btn-primary-bg))] hover:bg-[hsl(var(--btn-primary-hover))] text-[hsl(var(--btn-primary-text))]"
+                  className="w-full h-12 bg-gradient-to-r from-[hsl(var(--color-primary))] to-[hsl(var(--color-secondary))] hover:opacity-90 text-white font-semibold rounded-xl shadow-lg shadow-[hsl(var(--color-primary)/0.3)] transition-all"
                   disabled={loading}
                 >
-                  {loading ? 'Entrando...' : 'Entrar'}
+                  {loading ? (
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Entrando...
+                    </div>
+                  ) : (
+                    'Entrar'
+                  )}
                 </Button>
               </form>
             </TabsContent>
 
             <TabsContent value="register">
-              <form onSubmit={handleSignUp} className="space-y-4">
+              <form onSubmit={handleSignUp} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="register-email" className="text-[hsl(var(--foreground))]">
+                  <Label htmlFor="register-email" className="text-white/80 text-sm font-medium">
                     Email
                   </Label>
-                  <Input
-                    id="register-email"
-                    type="email"
-                    placeholder="seu@email.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="bg-[hsl(var(--muted))] border-[hsl(var(--border))] text-[hsl(var(--foreground))]"
-                  />
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
+                    <Input
+                      id="register-email"
+                      type="email"
+                      placeholder="seu@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30 pl-10 h-12 rounded-xl focus:border-[hsl(var(--color-primary))] focus:ring-1 focus:ring-[hsl(var(--color-primary))]"
+                    />
+                  </div>
                   {errors.email && (
-                    <p className="text-sm text-red-500">{errors.email}</p>
+                    <p className="text-sm text-red-400">{errors.email}</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="register-password" className="text-[hsl(var(--foreground))]">
+                  <Label htmlFor="register-password" className="text-white/80 text-sm font-medium">
                     Senha
                   </Label>
                   <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                     <Input
                       id="register-password"
                       type={showPassword ? 'text' : 'password'}
                       placeholder="Mínimo 6 caracteres"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="bg-[hsl(var(--muted))] border-[hsl(var(--border))] text-[hsl(var(--foreground))] pr-10"
+                      className="bg-white/5 border-white/10 text-white placeholder:text-white/30 pl-10 pr-10 h-12 rounded-xl focus:border-[hsl(var(--color-primary))] focus:ring-1 focus:ring-[hsl(var(--color-primary))]"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[hsl(var(--muted-foreground))]"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/70 transition-colors"
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
                   </div>
                   {errors.password && (
-                    <p className="text-sm text-red-500">{errors.password}</p>
+                    <p className="text-sm text-red-400">{errors.password}</p>
                   )}
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full bg-[hsl(var(--btn-primary-bg))] hover:bg-[hsl(var(--btn-primary-hover))] text-[hsl(var(--btn-primary-text))]"
+                  className="w-full h-12 bg-gradient-to-r from-[hsl(var(--color-primary))] to-[hsl(var(--color-secondary))] hover:opacity-90 text-white font-semibold rounded-xl shadow-lg shadow-[hsl(var(--color-primary)/0.3)] transition-all"
                   disabled={loading}
                 >
-                  {loading ? 'Cadastrando...' : 'Cadastrar'}
+                  {loading ? (
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Cadastrando...
+                    </div>
+                  ) : (
+                    'Cadastrar'
+                  )}
                 </Button>
               </form>
             </TabsContent>
           </Tabs>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };
