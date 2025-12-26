@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useProjects, ProjectInput, Project } from '@/hooks/useProjects';
@@ -8,7 +8,9 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { ArrowLeft, Plus, Pencil, Trash2, Github, ExternalLink, LogOut, FolderOpen, Sparkles, Image, Link } from 'lucide-react';
+import { ArrowLeft, Plus, Pencil, Trash2, Github, ExternalLink, LogOut, FolderOpen, Sparkles, Upload, Link, Loader2 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 // Email autorizado para acessar o admin
 const ADMIN_EMAIL = 'lucas.kfrancopinheiro@gmail.com';
@@ -30,6 +32,41 @@ const Admin: React.FC = () => {
     tech_stack: [],
   });
   const [techInput, setTechInput] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const filePath = `projects/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('project-files')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('project-files')
+        .getPublicUrl(filePath);
+
+      setFormData({ ...formData, image_url: publicUrl });
+      toast.success('Arquivo enviado com sucesso!');
+    } catch (error: any) {
+      console.error('Upload error:', error);
+      toast.error('Erro ao enviar arquivo: ' + error.message);
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
 
   useEffect(() => {
     if (!authLoading) {
@@ -197,18 +234,73 @@ const Admin: React.FC = () => {
                         rows={3}
                       />
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <Label className="text-white/80 text-sm font-medium flex items-center gap-2">
-                        <Image className="w-4 h-4" />
-                        URL do Arquivo (imagem, vídeo, etc.)
+                        <Upload className="w-4 h-4" />
+                        Arquivo (imagem, vídeo, etc.)
                       </Label>
+                      
+                      {/* Upload direto */}
+                      <div className="flex gap-2">
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          onChange={handleFileUpload}
+                          className="hidden"
+                          accept="image/*,video/*,.gif,.webp,.svg"
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => fileInputRef.current?.click()}
+                          disabled={uploading}
+                          className="flex-1 border-white/20 text-white hover:bg-white/10 rounded-xl h-11"
+                        >
+                          {uploading ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Enviando...
+                            </>
+                          ) : (
+                            <>
+                              <Upload className="w-4 h-4 mr-2" />
+                              Upload de Arquivo
+                            </>
+                          )}
+                        </Button>
+                      </div>
+
+                      {/* Ou usar URL */}
+                      <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                          <span className="w-full border-t border-white/10" />
+                        </div>
+                        <div className="relative flex justify-center text-xs">
+                          <span className="bg-[hsl(230,25%,12%)] px-2 text-white/40">ou cole uma URL</span>
+                        </div>
+                      </div>
+
                       <Input
                         value={formData.image_url}
                         onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
                         placeholder="https://exemplo.com/arquivo.png"
                         className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-11 rounded-xl focus:border-[hsl(var(--color-primary))] focus:ring-1 focus:ring-[hsl(var(--color-primary))]"
                       />
-                      <p className="text-white/40 text-xs">Aceita qualquer tipo de arquivo (imagem, vídeo, GIF, etc.)</p>
+
+                      {/* Preview */}
+                      {formData.image_url && (
+                        <div className="mt-2 p-2 rounded-xl bg-white/5 border border-white/10">
+                          <p className="text-white/40 text-xs mb-2">Preview:</p>
+                          <img
+                            src={formData.image_url}
+                            alt="Preview"
+                            className="max-h-32 rounded-lg object-contain"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).style.display = 'none';
+                            }}
+                          />
+                        </div>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label className="text-white/80 text-sm font-medium flex items-center gap-2">
