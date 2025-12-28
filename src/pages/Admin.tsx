@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { useAdmin } from '@/hooks/useAdmin';
 import { useProjects, ProjectInput, Project } from '@/hooks/useProjects';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,16 +13,13 @@ import { ArrowLeft, Plus, Pencil, Trash2, Github, ExternalLink, LogOut, FolderOp
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
-// Email autorizado para acessar o admin
-const ADMIN_EMAIL = 'lucas.kfrancopinheiro@gmail.com';
-
 const Admin: React.FC = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated, loading: authLoading, signOut } = useAuth();
+  const { isAdmin, loading: adminLoading } = useAdmin();
   const { projects, loading, createProject, updateProject, deleteProject } = useProjects();
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const isAdmin = user?.email === ADMIN_EMAIL;
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [formData, setFormData] = useState<ProjectInput>({
     title: '',
@@ -69,7 +67,7 @@ const Admin: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!authLoading) {
+    if (!authLoading && !adminLoading) {
       if (!isAuthenticated) {
         navigate('/auth');
       } else if (!isAdmin) {
@@ -77,7 +75,7 @@ const Admin: React.FC = () => {
         navigate('/');
       }
     }
-  }, [isAuthenticated, authLoading, isAdmin, navigate]);
+  }, [isAuthenticated, authLoading, adminLoading, isAdmin, navigate]);
 
   const resetForm = () => {
     setFormData({
@@ -142,7 +140,7 @@ const Admin: React.FC = () => {
     navigate('/');
   };
 
-  if (authLoading || loading) {
+  if (authLoading || adminLoading || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[hsl(230,25%,8%)] via-[hsl(250,30%,12%)] to-[hsl(270,25%,10%)]">
         <div className="relative">
