@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
-import { Sun, Moon } from 'lucide-react';
+import { useAdmin } from '../hooks/useAdmin';
+import { Sun, Moon, Settings } from 'lucide-react';
 import '../styles/Navbar.css';
 
 const Navbar: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+  const { isAdmin } = useAdmin();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -63,6 +66,15 @@ const Navbar: React.FC = () => {
         </ul>
 
         <div className="navbar-actions">
+          {isAdmin && (
+            <Link 
+              to="/admin" 
+              className="admin-link"
+              title="Painel Admin"
+            >
+              <Settings size={18} />
+            </Link>
+          )}
           <button 
             className="language-toggle" 
             onClick={toggleLanguage}
@@ -108,6 +120,16 @@ const Navbar: React.FC = () => {
           ))}
         </ul>
         <div className="mobile-nav-actions">
+          {isAdmin && (
+            <Link 
+              to="/admin" 
+              className="admin-link"
+              title="Painel Admin"
+              onClick={() => setMobileOpen(false)}
+            >
+              <Settings size={18} />
+            </Link>
+          )}
           <button className="language-toggle" onClick={toggleLanguage}>
             {language.toUpperCase()}
           </button>

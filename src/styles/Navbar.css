@@ -94,6 +94,33 @@
   gap: 0.75rem;
 }
 
+/* Admin Link */
+.admin-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: hsl(var(--color-primary) / 0.2);
+  border-radius: var(--radius-full);
+  color: hsl(var(--navbar-text));
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.admin-link:hover {
+  background: hsl(var(--color-primary) / 0.35);
+  transform: scale(1.05);
+}
+
+.admin-link:active {
+  transform: scale(0.95);
+}
+
+.admin-link svg {
+  width: 18px;
+  height: 18px;
+}
+
 /* Language Toggle */
 .language-toggle {
   display: flex;
