@@ -16,20 +16,20 @@ const Contact: React.FC = () => {
     {
       icon: Mail,
       label: t.contact.email,
-      value: 'joao.silva@email.com',
-      href: 'mailto:joao.silva@email.com',
+      value: 'lucas.kfrancopinheiro@gmail.com',
+      href: 'mailto:lucas.kfrancopinheiro@gmail.com',
     },
     {
       icon: Linkedin,
       label: t.contact.linkedin,
-      value: 'linkedin.com/in/joaosilva',
-      href: 'https://linkedin.com/in/joaosilva',
+      value: 'linkedin.com/in/lucas-kayck-franco-pinheiro',
+      href: 'https://www.linkedin.com/in/lucas-kayck-franco-pinheiro-bb3971246/',
     },
     {
       icon: Github,
       label: t.contact.github,
-      value: 'github.com/joaosilva',
-      href: 'https://github.com/joaosilva',
+      value: 'github.com/LuksFP',
+      href: 'https://github.com/LuksFP',
     },
   ];
 
@@ -75,7 +75,7 @@ const Contact: React.FC = () => {
               className={`reveal-scale ${ctaReveal.isVisible ? 'visible' : ''}`}
               style={{ textAlign: 'center' }}
             >
-              <a href="mailto:joao.silva@email.com" className="contact-cta">
+              <a href="mailto:lucas.kfrancopinheiro@gmail.com" className="contact-cta">
                 <Send size={20} />
                 {t.contact.cta}
               </a>
@@ -86,7 +86,7 @@ const Contact: React.FC = () => {
 
       <footer className="footer">
         <p className="footer-text">
-          © {new Date().getFullYear()} <span>João Silva</span>. All rights reserved.
+          © {new Date().getFullYear()} <span>Lucas Kayck Franco Pinheiro</span>. All rights reserved.
         </p>
       </footer>
     </>
