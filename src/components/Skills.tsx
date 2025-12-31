@@ -29,7 +29,7 @@ const Skills: React.FC = () => {
     <section id="skills" className="skills section">
       <div className="container">
         <div 
-          ref={titleReveal.ref as React.RefObject<HTMLDivElement>}
+          ref={titleReveal.ref}
           className={`reveal ${titleReveal.isVisible ? 'visible' : ''}`}
         >
           <h2 className="section-title">{t.skills.title}</h2>
@@ -37,7 +37,7 @@ const Skills: React.FC = () => {
         </div>
 
         <div 
-          ref={gridReveal.ref as React.RefObject<HTMLDivElement>}
+          ref={gridReveal.ref}
           className={`skills-grid stagger-children ${gridReveal.isVisible ? 'visible' : ''}`}
         >
           {skills.map((skill, index) => (

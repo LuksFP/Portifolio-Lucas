@@ -51,7 +51,7 @@ const Projects: React.FC = () => {
     <section id="projects" className="projects section">
       <div className="container">
         <div 
-          ref={titleReveal.ref as React.RefObject<HTMLDivElement>}
+          ref={titleReveal.ref}
           className={`reveal ${titleReveal.isVisible ? 'visible' : ''}`}
         >
           <h2 className="section-title">{t.projects.title}</h2>
@@ -64,7 +64,7 @@ const Projects: React.FC = () => {
           </div>
         ) : (
         <div 
-          ref={gridReveal.ref as React.RefObject<HTMLDivElement>}
+          ref={gridReveal.ref}
           className={`projects-grid stagger-children ${gridReveal.isVisible ? 'visible' : ''}`}
         >
           {projects.map((project, index) => (
