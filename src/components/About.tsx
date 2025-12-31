@@ -22,7 +22,7 @@ const About: React.FC = () => {
     <section id="about" className="about section">
       <div className="container">
         <div 
-          ref={titleReveal.ref as React.RefObject<HTMLDivElement>}
+          ref={titleReveal.ref}
           className={`reveal ${titleReveal.isVisible ? 'visible' : ''}`}
         >
           <h2 className="section-title">{t.about.title}</h2>
@@ -32,7 +32,7 @@ const About: React.FC = () => {
         <div className="about-container">
           <div className="about-content">
             <div 
-              ref={textReveal.ref as React.RefObject<HTMLDivElement>}
+              ref={textReveal.ref}
               className={`about-text reveal ${textReveal.isVisible ? 'visible' : ''}`}
             >
               <p>{t.about.p1}</p>
@@ -41,7 +41,7 @@ const About: React.FC = () => {
             </div>
 
             <div 
-              ref={statsReveal.ref as React.RefObject<HTMLDivElement>}
+              ref={statsReveal.ref}
               className={`about-stats stagger-children ${statsReveal.isVisible ? 'visible' : ''}`}
             >
               {stats.map((stat, index) => (

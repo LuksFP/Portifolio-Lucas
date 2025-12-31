@@ -38,7 +38,7 @@ const Contact: React.FC = () => {
       <section id="contact" className="contact section">
         <div className="container">
           <div 
-            ref={titleReveal.ref as React.RefObject<HTMLDivElement>}
+            ref={titleReveal.ref}
             className={`reveal ${titleReveal.isVisible ? 'visible' : ''}`}
           >
             <h2 className="section-title">{t.contact.title}</h2>
@@ -47,7 +47,7 @@ const Contact: React.FC = () => {
 
           <div className="contact-container">
             <div 
-              ref={linksReveal.ref as React.RefObject<HTMLDivElement>}
+              ref={linksReveal.ref}
               className={`contact-links stagger-children ${linksReveal.isVisible ? 'visible' : ''}`}
             >
               {contactLinks.map((link, index) => (
@@ -71,7 +71,7 @@ const Contact: React.FC = () => {
             </div>
 
             <div 
-              ref={ctaReveal.ref as React.RefObject<HTMLDivElement>}
+              ref={ctaReveal.ref}
               className={`reveal-scale ${ctaReveal.isVisible ? 'visible' : ''}`}
               style={{ textAlign: 'center' }}
             >
