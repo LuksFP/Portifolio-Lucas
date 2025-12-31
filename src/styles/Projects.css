@@ -88,10 +88,15 @@
   border-color: hsl(var(--border)) !important;
 }
 
-.projects-tech-select {
+.projects-tech-select,
+.projects-sort-select {
   width: 200px;
   background: hsl(var(--card)) !important;
   border-color: hsl(var(--border)) !important;
+}
+
+.projects-sort-select {
+  width: 180px;
 }
 
 .projects-clear-filters {
@@ -257,6 +262,71 @@
   color: hsl(var(--primary-foreground));
 }
 
+/* Pagination */
+.projects-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 3rem;
+}
+
+.pagination-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-md);
+  color: hsl(var(--foreground));
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: hsl(var(--accent));
+  border-color: hsl(var(--color-primary));
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-pages {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.pagination-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.5rem;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-md);
+  color: hsl(var(--foreground));
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.pagination-page:hover {
+  background: hsl(var(--accent));
+  border-color: hsl(var(--color-primary));
+}
+
+.pagination-page-active {
+  background: hsl(var(--color-primary));
+  border-color: hsl(var(--color-primary));
+  color: hsl(var(--primary-foreground));
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .projects-grid {
@@ -278,7 +348,19 @@
     max-width: none;
   }
 
-  .projects-tech-select {
+  .projects-tech-select,
+  .projects-sort-select {
     width: 100%;
+  }
+
+  .projects-pagination {
+    flex-wrap: wrap;
+  }
+
+  .pagination-pages {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
   }
 }

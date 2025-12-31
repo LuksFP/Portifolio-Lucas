@@ -1,73 +1,145 @@
-# Welcome to your Lovable project
+# 🚀 Lucas Franco - Portfólio Profissional
 
-## Project info
+Um portfólio moderno e responsivo construído com React, TypeScript e Lovable Cloud para mostrar projetos, habilidades e facilitar contato profissional.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=flat-square&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=flat-square&logo=tailwind-css)
+![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=flat-square&logo=vite)
 
-## How can I edit this code?
+## ✨ Funcionalidades
 
-There are several ways of editing your application.
+### 🎨 Design & UX
+- **Design responsivo** - Experiência otimizada para desktop, tablet e mobile
+- **Tema claro/escuro** - Alternância suave entre modos de exibição
+- **Animações fluidas** - Scroll reveal e transições elegantes
+- **Interface moderna** - Gradientes, sombras e tipografia refinada
 
-**Use Lovable**
+### 📂 Seção de Projetos
+- **Gerenciamento dinâmico** - CRUD completo via painel admin
+- **Busca inteligente** - Filtro por título e descrição
+- **Filtro por tecnologia** - Clique nas tags para filtrar
+- **Ordenação flexível** - Por data (recente/antigo) ou título (A-Z/Z-A)
+- **Paginação** - Performance otimizada com 6 projetos por página
+- **Skeleton loading** - Feedback visual durante carregamento
+- **Estado vazio** - CTA amigável para criar primeiro projeto
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+### 🔐 Autenticação & Admin
+- **Login seguro** - Autenticação via Lovable Cloud
+- **Painel administrativo** - Gerenciamento de projetos protegido
+- **Controle de acesso** - Sistema de roles (admin/user)
+- **RLS policies** - Segurança em nível de banco de dados
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🌐 Internacionalização
+- **Português (PT-BR)** - Idioma padrão
+- **English (EN)** - Suporte completo
 
-**Use your preferred IDE**
+### 📬 Contato
+- **Formulário integrado** - Envio direto de mensagens
+- **Links sociais** - GitHub, LinkedIn e mais
+- **Download de CV** - Acesso rápido ao currículo
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🛠️ Tecnologias
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+| Categoria | Tecnologias |
+|-----------|-------------|
+| **Frontend** | React 18, TypeScript, Vite |
+| **Styling** | Tailwind CSS, CSS Modules, Shadcn/UI |
+| **Backend** | Lovable Cloud (Supabase) |
+| **Database** | PostgreSQL com RLS |
+| **Auth** | Autenticação segura com roles |
+| **State** | React Query, Context API |
+| **Icons** | Lucide React |
 
-Follow these steps:
+## 🚀 Quick Start
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Pré-requisitos
+- Node.js 18+
+- npm ou bun
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Instalação
 
-# Step 3: Install the necessary dependencies.
-npm i
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/portfolio.git
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Entre no diretório
+cd portfolio
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Variáveis de Ambiente
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+O projeto usa Lovable Cloud, então as variáveis são configuradas automaticamente. Para desenvolvimento local, crie um arquivo `.env`:
 
-**Use GitHub Codespaces**
+```env
+VITE_SUPABASE_URL=sua_url
+VITE_SUPABASE_PUBLISHABLE_KEY=sua_chave
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📁 Estrutura do Projeto
 
-## What technologies are used for this project?
+```
+src/
+├── components/          # Componentes React
+│   ├── ui/             # Componentes Shadcn/UI
+│   ├── Hero.tsx        # Seção principal
+│   ├── About.tsx       # Sobre mim
+│   ├── Projects.tsx    # Projetos com filtros
+│   ├── Skills.tsx      # Habilidades técnicas
+│   ├── Contact.tsx     # Formulário de contato
+│   └── Navbar.tsx      # Navegação
+├── contexts/           # Context providers
+│   ├── ThemeContext    # Tema claro/escuro
+│   └── LanguageContext # Internacionalização
+├── hooks/              # Custom hooks
+│   ├── useProjects     # CRUD de projetos
+│   ├── useAdmin        # Verificação de admin
+│   └── useScrollReveal # Animações de scroll
+├── pages/              # Páginas da aplicação
+│   ├── Index.tsx       # Home
+│   ├── Auth.tsx        # Login/Signup
+│   └── Admin.tsx       # Painel admin
+├── styles/             # CSS modules
+└── integrations/       # Integrações externas
+```
 
-This project is built with:
+## 🎯 Roadmap
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- [ ] Blog integrado com MDX
+- [ ] Comentários em projetos
+- [ ] Analytics dashboard
+- [ ] Integração com API do GitHub
+- [ ] Modo apresentação
 
-## How can I deploy this project?
+## 🤝 Contribuindo
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+Contribuições são bem-vindas! Sinta-se à vontade para:
 
-## Can I connect a custom domain to my Lovable project?
+1. Fazer fork do projeto
+2. Criar uma branch (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -m 'Add nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abrir um Pull Request
 
-Yes, you can!
+## 📄 Licença
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## 📧 Contato
+
+**Lucas Franco**
+- LinkedIn: [linkedin.com/in/lucasfranco](https://linkedin.com/in/lucasfranco)
+- GitHub: [github.com/lucasfranco](https://github.com/lucasfranco)
+- Email: lucas.kfrancopinheiro@gmail.com
+
+---
+
+<p align="center">
+  Feito com ❤️ usando <a href="https://lovable.dev">Lovable</a>
+</p>
