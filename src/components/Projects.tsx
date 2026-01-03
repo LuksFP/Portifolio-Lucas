@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
@@ -83,7 +83,7 @@ const Projects: React.FC = () => {
   }, [filteredAndSortedProjects, currentPage]);
 
   // Reset to page 1 when filters change
-  React.useEffect(() => {
+  useEffect(() => {
     setCurrentPage(1);
   }, [searchQuery, selectedTech, sortBy]);
 
@@ -97,18 +97,18 @@ const Projects: React.FC = () => {
     demo: p.demo_url || '',
   }));
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     setSearchQuery('');
     setSelectedTech('all');
     setSortBy('newest');
-  };
+  }, []);
 
   const hasActiveFilters = searchQuery !== '' || selectedTech !== 'all';
 
-  const goToPage = (page: number) => {
+  const goToPage = useCallback((page: number) => {
     setCurrentPage(page);
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
   return (
     <section id="projects" className="projects section">
@@ -294,4 +294,4 @@ const Projects: React.FC = () => {
   );
 };
 
-export default Projects;
+export default memo(Projects);

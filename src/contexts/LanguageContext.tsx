@@ -60,7 +60,7 @@ const translations: Record<Language, Translations> = {
     },
     hero: {
       greeting: 'Olá, eu sou',
-      name: 'João Silva',
+      name: 'Lucas Kayck Franco Pinheiro',
       title: 'Desenvolvedor Front-End',
       description: 'Criando experiências digitais incríveis com código limpo e design moderno. Especializado em React, TypeScript e interfaces responsivas.',
       viewProjects: 'Ver Projetos',
@@ -69,7 +69,7 @@ const translations: Record<Language, Translations> = {
     about: {
       title: 'Sobre Mim',
       subtitle: 'Conheça um pouco mais sobre minha jornada e paixão pelo desenvolvimento',
-      p1: 'Sou um desenvolvedor front-end apaixonado por criar interfaces bonitas e funcionais. Com mais de 5 anos de experiência, tenho trabalhado com as tecnologias mais modernas do mercado.',
+      p1: 'Sou um desenvolvedor front-end apaixonado por criar interfaces bonitas e funcionais. Com mais de 3 anos de experiência, tenho trabalhado com as tecnologias mais modernas do mercado.',
       p2: 'Minha abordagem combina design centrado no usuário com código limpo e performático. Acredito que a melhor experiência do usuário vem da união entre estética e funcionalidade.',
       p3: 'Quando não estou codando, você pode me encontrar explorando novas tecnologias, contribuindo para projetos open source ou compartilhando conhecimento com a comunidade dev.',
     },
@@ -116,7 +116,7 @@ const translations: Record<Language, Translations> = {
     },
     hero: {
       greeting: "Hi, I'm",
-      name: 'João Silva',
+      name: 'Lucas Kayck Franco Pinheiro',
       title: 'Front-End Developer',
       description: 'Creating amazing digital experiences with clean code and modern design. Specialized in React, TypeScript and responsive interfaces.',
       viewProjects: 'View Projects',
@@ -125,7 +125,7 @@ const translations: Record<Language, Translations> = {
     about: {
       title: 'About Me',
       subtitle: 'Learn a little more about my journey and passion for development',
-      p1: "I'm a front-end developer passionate about creating beautiful and functional interfaces. With over 5 years of experience, I've been working with the most modern technologies in the market.",
+      p1: "I'm a front-end developer passionate about creating beautiful and functional interfaces. With over 3 years of experience, I've been working with the most modern technologies in the market.",
       p2: 'My approach combines user-centered design with clean and performant code. I believe the best user experience comes from the union of aesthetics and functionality.',
       p3: "When I'm not coding, you can find me exploring new technologies, contributing to open source projects or sharing knowledge with the dev community.",
     },

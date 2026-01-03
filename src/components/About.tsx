@@ -12,9 +12,9 @@ const About: React.FC = () => {
   const statsReveal = useScrollReveal({ threshold: 0.2 });
 
   const stats = [
-    { number: '5+', label: language === 'pt' ? 'Anos de Experiência' : 'Years Experience' },
-    { number: '50+', label: language === 'pt' ? 'Projetos Concluídos' : 'Projects Completed' },
-    { number: '30+', label: language === 'pt' ? 'Clientes Satisfeitos' : 'Happy Clients' },
+    { number: '3+', label: language === 'pt' ? 'Anos de Experiência' : 'Years Experience' },
+    { number: '10+', label: language === 'pt' ? 'Projetos Concluídos' : 'Projects Completed' },
+    { number: '10+', label: language === 'pt' ? 'Clientes Satisfeitos' : 'Happy Clients' },
     { number: '10+', label: language === 'pt' ? 'Tecnologias' : 'Technologies' },
   ];
 
