@@ -4,9 +4,16 @@
   background: hsl(var(--background));
 }
 
+@media (max-width: 768px) {
+  .about {
+    padding: var(--section-padding-mobile);
+  }
+}
+
 .about-container {
   max-width: 900px;
   margin: 0 auto;
+  padding: 0 0.5rem;
 }
 
 .about-content {
@@ -82,11 +89,35 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .about-container {
+    padding: 0;
+  }
+
   .about-text p {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .about-text p:first-child::first-letter {
+    font-size: 2.5rem;
   }
 
   .about-stats {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .stat-item {
+    padding: 1rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
   }
 }

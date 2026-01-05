@@ -56,7 +56,8 @@
   --font-heading: 'Outfit', 'Inter', sans-serif;
   
   /* Spacing */
-  --section-padding: 5rem 2rem;
+  --section-padding: 4rem 1rem;
+  --section-padding-mobile: 2.5rem 0.75rem;
   --container-max: 1200px;
   
   /* Transitions */
@@ -139,7 +140,13 @@ button {
   width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
 }
 
 /* Section */
@@ -148,8 +155,8 @@ button {
 }
 
 .section-title {
-  font-size: clamp(2rem, 5vw, 2.75rem);
-  margin-bottom: 1rem;
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  margin-bottom: 0.75rem;
   text-align: center;
   position: relative;
 }
@@ -157,19 +164,26 @@ button {
 .section-title::after {
   content: '';
   display: block;
-  width: 60px;
-  height: 4px;
+  width: 50px;
+  height: 3px;
   background: var(--gradient-primary);
-  margin: 1rem auto 0;
+  margin: 0.75rem auto 0;
   border-radius: var(--radius-full);
 }
 
 .section-subtitle {
   text-align: center;
   color: hsl(var(--muted-foreground));
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   max-width: 600px;
-  margin: 0 auto 3rem;
+  margin: 0 auto 2rem;
+  padding: 0 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-subtitle {
+    margin: 0 auto 3rem;
+  }
 }
 
 /* Animations */
