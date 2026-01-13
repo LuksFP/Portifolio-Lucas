@@ -224,9 +224,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ---
 
 <p align="center">
-  Feito com ❤️ por <strong>Lucas Kayck Franco Pinheiro</strong>
-</p>
-
-<p align="center">
   <a href="#-lucas-kayck-franco-pinheiro---portfólio-profissional">⬆️ Voltar ao topo</a>
 </p>
