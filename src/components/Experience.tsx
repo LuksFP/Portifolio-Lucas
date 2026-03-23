@@ -10,7 +10,7 @@ import '../styles/ScrollReveal.css';
 ────────────────────────────────────────── */
 const JOBS = [
   {
-    role: 'Engenheiro de Software · Arquiteto · QA · UI/UX Designer',
+    role: 'Engenheiro de Software',
     company: 'Powertec Tecnologia',
     period: { pt: 'Fev 2026 – Atual', en: 'Feb 2026 – Present' },
     current: true,
