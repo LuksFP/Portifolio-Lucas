@@ -90,7 +90,12 @@
 }
 
 .navbar-link.active {
-  color: hsl(var(--navbar-text));
+  color: hsl(0 0% 100%);
+}
+
+.mobile-nav-link.active {
+  color: hsl(0 0% 100%);
+  background: hsl(0 0% 100% / 0.12);
 }
 
 /* Actions */
