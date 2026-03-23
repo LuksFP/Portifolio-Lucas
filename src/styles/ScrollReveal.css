@@ -1,0 +1,60 @@
+/* ─── Scroll Reveal — clip-path based ──────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16,1,0.3,1),
+    transform 0.65s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0; transform: translateX(-32px);
+  transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-right {
+  opacity: 0; transform: translateX(32px);
+  transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-scale {
+  opacity: 0; transform: scale(0.94);
+  transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+/* Stagger */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.5s cubic-bezier(0.16,1,0.3,1),
+    transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.stagger-children.visible > *:nth-child(1)  { transition-delay: 0.04s; }
+.stagger-children.visible > *:nth-child(2)  { transition-delay: 0.08s; }
+.stagger-children.visible > *:nth-child(3)  { transition-delay: 0.12s; }
+.stagger-children.visible > *:nth-child(4)  { transition-delay: 0.16s; }
+.stagger-children.visible > *:nth-child(5)  { transition-delay: 0.20s; }
+.stagger-children.visible > *:nth-child(6)  { transition-delay: 0.24s; }
+.stagger-children.visible > *:nth-child(7)  { transition-delay: 0.28s; }
+.stagger-children.visible > *:nth-child(8)  { transition-delay: 0.32s; }
+.stagger-children.visible > *:nth-child(9)  { transition-delay: 0.36s; }
+.stagger-children.visible > *:nth-child(10) { transition-delay: 0.40s; }
+.stagger-children.visible > *:nth-child(11) { transition-delay: 0.44s; }
+.stagger-children.visible > *:nth-child(12) { transition-delay: 0.48s; }
+
+.stagger-children.visible > * { opacity: 1; transform: translateY(0); }
+
+/* Delays */
+.delay-100 { transition-delay: 0.1s !important; }
+.delay-200 { transition-delay: 0.2s !important; }
+.delay-300 { transition-delay: 0.3s !important; }
+.delay-400 { transition-delay: 0.4s !important; }
+.delay-500 { transition-delay: 0.5s !important; }

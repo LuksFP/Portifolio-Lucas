@@ -1,0 +1,170 @@
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
+import { useTheme } from '../contexts/ThemeContext';
+import { useAdmin } from '../hooks/useAdmin';
+import { Sun, Moon, Settings } from 'lucide-react';
+import '../styles/Navbar.css';
+
+const Navbar: React.FC = () => {
+  const { language, setLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
+  const { isAdmin } = useAdmin();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = ['home', 'about', 'experience', 'projects', 'github', 'skills', 'contact'];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.35, rootMargin: '-60px 0px -40% 0px' }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setMobileOpen(false);
+    }
+  };
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'pt' ? 'en' : 'pt');
+  };
+
+  const navLinks = [
+    { id: 'home', label: t.nav.home },
+    { id: 'about', label: t.nav.about },
+    { id: 'experience', label: t.nav.experience },
+    { id: 'projects', label: t.nav.projects },
+    { id: 'skills', label: t.nav.skills },
+    { id: 'contact', label: t.nav.contact },
+  ];
+
+  return (
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+      <div className="navbar-container">
+        <a href="#home" className="navbar-logo" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
+          {'<'}Dev<span>/</span>{'>'}
+        </a>
+
+        <ul className="navbar-nav">
+          {navLinks.map((link) => (
+            <li key={link.id}>
+              <a
+                href={`#${link.id}`}
+                className={`navbar-link ${activeSection === link.id ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(link.id);
+                }}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="navbar-actions">
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className="admin-link"
+              title="Painel Admin"
+            >
+              <Settings size={18} />
+            </Link>
+          )}
+          <button
+            className="language-toggle"
+            onClick={toggleLanguage}
+            aria-label="Toggle language"
+          >
+            {language.toUpperCase()}
+          </button>
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {theme === 'light' ? <Moon /> : <Sun />}
+          </button>
+        </div>
+
+        <button
+          className={`mobile-menu-btn ${mobileOpen ? 'active' : ''}`}
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <div className={`mobile-nav ${mobileOpen ? 'open' : ''}`}>
+        <ul className="mobile-nav-links">
+          {navLinks.map((link) => (
+            <li key={link.id}>
+              <a
+                href={`#${link.id}`}
+                className={`mobile-nav-link ${activeSection === link.id ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection(link.id);
+                }}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="mobile-nav-actions">
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className="admin-link"
+              title="Painel Admin"
+              onClick={() => setMobileOpen(false)}
+            >
+              <Settings size={18} />
+            </Link>
+          )}
+          <button className="language-toggle" onClick={toggleLanguage}>
+            {language.toUpperCase()}
+          </button>
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {theme === 'light' ? <Moon /> : <Sun />}
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
