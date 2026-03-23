@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const sectionIds = ['home', 'about', 'projects', 'github', 'skills', 'contact'];
+    const sectionIds = ['home', 'about', 'experience', 'projects', 'github', 'skills', 'contact'];
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -59,6 +59,7 @@ const Navbar: React.FC = () => {
   const navLinks = [
     { id: 'home', label: t.nav.home },
     { id: 'about', label: t.nav.about },
+    { id: 'experience', label: t.nav.experience },
     { id: 'projects', label: t.nav.projects },
     { id: 'skills', label: t.nav.skills },
     { id: 'contact', label: t.nav.contact },

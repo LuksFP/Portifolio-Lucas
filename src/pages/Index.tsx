@@ -8,6 +8,7 @@ import Projects from '../components/Projects';
 import GitHubRepos from '../components/GitHubRepos';
 import Skills from '../components/Skills';
 import Contact from '../components/Contact';
+import Experience from '../components/Experience';
 
 const Index: React.FC = () => {
   const { language } = useLanguage();
@@ -21,6 +22,7 @@ const Index: React.FC = () => {
       <main>
         <Hero />
         <About />
+        <Experience />
         <Projects />
         <GitHubRepos />
         <Skills />
