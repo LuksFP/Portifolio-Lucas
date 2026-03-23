@@ -106,15 +106,31 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border-col);
-  transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+  transition: transform 450ms cubic-bezier(0.16,1,0.3,1), border-color 250ms ease, box-shadow 250ms ease;
   display: flex;
   flex-direction: column;
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .project-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(255,61,0,0.3);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,61,0,0.1);
+  border-color: rgba(255,61,0,0.35);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,61,0,0.12),
+    0 0 40px var(--card-accent, rgba(255,61,0,0.1));
+}
+
+/* Glare layer */
+.project-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 150ms ease;
 }
 
 [data-theme="light"] .project-card {
@@ -140,14 +156,21 @@
   display: flex; align-items: center; justify-content: center;
   background: var(--surface-2);
   position: relative;
+  overflow: hidden;
 }
-.project-image-placeholder::before {
-  content: '';
+
+.project-placeholder-bg {
   position: absolute; inset: 0;
+  background: var(--card-accent, rgba(255,61,0,0.12));
   background-image:
     linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
   background-size: 28px 28px;
+  transition: transform 450ms cubic-bezier(0.16,1,0.3,1);
+}
+
+.project-card:hover .project-placeholder-bg {
+  transform: scale(1.08);
 }
 
 .project-number {

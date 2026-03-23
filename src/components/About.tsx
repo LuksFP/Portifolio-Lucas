@@ -1,22 +1,74 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import '../styles/About.css';
 import '../styles/ScrollReveal.css';
 
+const useCounter = (target: number, isVisible: boolean, duration = 1400) => {
+  const [value, setValue] = useState(0);
+  const started = useRef(false);
+
+  useEffect(() => {
+    if (!isVisible || started.current) return;
+    started.current = true;
+    const startTime = Date.now();
+
+    const tick = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(eased * target));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, [isVisible, target, duration]);
+
+  return value;
+};
+
+interface StatItemProps {
+  target: number;
+  suffix: string;
+  label: string;
+  isVisible: boolean;
+  delay?: number;
+}
+
+const StatItem: React.FC<StatItemProps> = ({ target, suffix, label, isVisible, delay = 0 }) => {
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    const t = setTimeout(() => setActive(true), delay);
+    return () => clearTimeout(t);
+  }, [isVisible, delay]);
+
+  const count = useCounter(target, active);
+
+  return (
+    <div className="stat-item">
+      <div className="stat-number">
+        <span className="stat-count">{count}</span>
+        <span className="stat-suffix">{suffix}</span>
+      </div>
+      <div className="stat-label">{label}</div>
+    </div>
+  );
+};
+
 const About: React.FC = () => {
   const { t, language } = useLanguage();
 
-  const titleReveal = useScrollReveal({ threshold: 0.2 });
+  const titleReveal  = useScrollReveal({ threshold: 0.2 });
   const profileReveal = useScrollReveal({ threshold: 0.1 });
-  const textReveal = useScrollReveal({ threshold: 0.1 });
-  const statsReveal = useScrollReveal({ threshold: 0.2 });
+  const textReveal   = useScrollReveal({ threshold: 0.1 });
+  const statsReveal  = useScrollReveal({ threshold: 0.2 });
 
   const stats = [
-    { number: '3+', label: language === 'pt' ? 'Anos de Experiência' : 'Years Experience' },
-    { number: '7+', label: language === 'pt' ? 'Projetos Concluídos' : 'Projects Completed' },
-    { number: '20+', label: language === 'pt' ? 'Tecnologias' : 'Technologies' },
-    { number: '2', label: language === 'pt' ? 'Sistemas em Produção' : 'Production Systems' },
+    { target: 3, suffix: '+', label: language === 'pt' ? 'Anos de Experiência' : 'Years Experience' },
+    { target: 12, suffix: '+', label: language === 'pt' ? 'Projetos Concluídos' : 'Projects Completed' },
+    { target: 20, suffix: '+', label: language === 'pt' ? 'Tecnologias' : 'Technologies' },
+    { target: 2,  suffix: '',  label: language === 'pt' ? 'Sistemas em Produção' : 'Production Systems' },
   ];
 
   return (
@@ -59,16 +111,20 @@ const About: React.FC = () => {
               <p>{t.about.p3}</p>
             </div>
 
-            {/* Stats */}
+            {/* Stats with animated counters */}
             <div
               ref={statsReveal.ref}
               className={`about-stats stagger-children ${statsReveal.isVisible ? 'visible' : ''}`}
             >
-              {stats.map((stat) => (
-                <div key={stat.label} className="stat-item">
-                  <div className="stat-number">{stat.number}</div>
-                  <div className="stat-label">{stat.label}</div>
-                </div>
+              {stats.map((stat, i) => (
+                <StatItem
+                  key={stat.label}
+                  target={stat.target}
+                  suffix={stat.suffix}
+                  label={stat.label}
+                  isVisible={statsReveal.isVisible}
+                  delay={i * 150}
+                />
               ))}
             </div>
           </div>

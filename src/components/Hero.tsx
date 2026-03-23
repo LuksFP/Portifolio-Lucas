@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import '../styles/Hero.css';
@@ -57,6 +57,43 @@ const CodeDecoration: React.FC = () => (
   </div>
 );
 
+const useMagnetic = (strength = 0.32) => {
+  const ref = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const btn = ref.current;
+    if (!btn) return;
+
+    const onMove = (e: MouseEvent) => {
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const radius = 110;
+
+      if (dist < radius) {
+        const pull = (1 - dist / radius) * strength;
+        btn.style.transform = `translate(${dx * pull}px, ${dy * pull}px)`;
+      } else if (btn.style.transform) {
+        btn.style.transform = '';
+      }
+    };
+
+    const onLeave = () => { btn.style.transform = ''; };
+
+    window.addEventListener('mousemove', onMove);
+    btn.addEventListener('mouseleave', onLeave);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      btn.removeEventListener('mouseleave', onLeave);
+    };
+  }, [strength]);
+
+  return ref;
+};
+
 const Hero: React.FC = () => {
   const { t, language } = useLanguage();
   const [scrollY, setScrollY] = useState(0);
@@ -66,6 +103,9 @@ const Hero: React.FC = () => {
   const scrambleRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const cursorDot = useRef<HTMLDivElement>(null);
   const cursorRing = useRef<HTMLDivElement>(null);
+
+  const btnPrimary = useMagnetic(0.32);
+  const btnSecondary = useMagnetic(0.28);
 
   const roles = language === 'pt' ? ROLES_PT : ROLES_EN;
 
@@ -129,7 +169,6 @@ const Hero: React.FC = () => {
     };
 
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-
     const animateRing = () => {
       ringX = lerp(ringX, mouseX, 0.12);
       ringY = lerp(ringY, mouseY, 0.12);
@@ -159,18 +198,17 @@ const Hero: React.FC = () => {
     };
   }, []);
 
-  const scrollToSection = (id: string) => {
+  const scrollToSection = useCallback((id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
   return (
     <>
-      {/* Custom cursor */}
       <div ref={cursorDot}  className="cursor-dot"  />
       <div ref={cursorRing} className="cursor-ring" />
 
       <section id="home" className="hero">
-        {/* Parallax */}
+        {/* Parallax + background */}
         <div className="hero-parallax">
           <div className="parallax-orb parallax-orb-1"
             style={{ transform: `translate(${scrollY * 0.04}px, ${scrollY * 0.08}px)` }} />
@@ -180,6 +218,15 @@ const Hero: React.FC = () => {
             style={{ transform: `translate(${scrollY * 0.02}px, ${scrollY * 0.05}px)` }} />
           <div className="parallax-grid"
             style={{ transform: `translateY(${scrollY * 0.15}px)` }} />
+        </div>
+
+        {/* Background scrolling text */}
+        <div className="hero-bg-text" aria-hidden="true">
+          <div className="hero-bg-text-track">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <span key={i}>FULL‑STACK&nbsp;&nbsp;DEVELOPER&nbsp;&nbsp;</span>
+            ))}
+          </div>
         </div>
 
         <CodeDecoration />
@@ -194,10 +241,7 @@ const Hero: React.FC = () => {
             {language === 'pt' ? 'Disponível para trabalho' : 'Available for work'}
           </div>
 
-          <h1
-            className="hero-name"
-            data-text={displayName}
-          >
+          <h1 className="hero-name" data-text={displayName}>
             {displayName}
           </h1>
 
@@ -212,6 +256,7 @@ const Hero: React.FC = () => {
 
           <div className="hero-buttons">
             <button
+              ref={btnPrimary}
               className="hero-btn hero-btn-primary"
               onClick={() => scrollToSection('projects')}
             >
@@ -219,6 +264,7 @@ const Hero: React.FC = () => {
               <ArrowRight size={16} />
             </button>
             <button
+              ref={btnSecondary}
               className="hero-btn hero-btn-secondary"
               onClick={() => scrollToSection('contact')}
             >
@@ -233,12 +279,12 @@ const Hero: React.FC = () => {
             </div>
             <div className="hero-stat-divider" />
             <div className="hero-stat">
-              <span className="hero-stat-number">10+</span>
+              <span className="hero-stat-number">12+</span>
               <span className="hero-stat-label">{language === 'pt' ? 'Projetos' : 'Projects'}</span>
             </div>
             <div className="hero-stat-divider" />
             <div className="hero-stat">
-              <span className="hero-stat-number">12+</span>
+              <span className="hero-stat-number">15+</span>
               <span className="hero-stat-label">{language === 'pt' ? 'Tecnologias' : 'Tech'}</span>
             </div>
           </div>
@@ -246,6 +292,7 @@ const Hero: React.FC = () => {
 
         <div className="scroll-indicator"
           style={{ opacity: Math.max(0, 1 - scrollY * 0.012) }}>
+          <div className="scroll-indicator-line" />
           <ChevronDown />
         </div>
       </section>

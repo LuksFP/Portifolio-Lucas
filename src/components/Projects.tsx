@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback, memo } from 'react';
+import { useState, useMemo, useEffect, useCallback, useRef, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
@@ -20,6 +20,65 @@ import '../styles/ScrollReveal.css';
 type SortOption = 'newest' | 'oldest' | 'title-asc' | 'title-desc';
 
 const ITEMS_PER_PAGE = 6;
+
+const CARD_COLORS = [
+  'rgba(255,61,0,0.18)',
+  'rgba(188,255,0,0.15)',
+  'rgba(97,218,251,0.15)',
+  'rgba(118,74,188,0.18)',
+  'rgba(255,198,0,0.15)',
+  'rgba(62,207,142,0.15)',
+];
+
+interface TiltCardProps {
+  children: React.ReactNode;
+  className?: string;
+  colorIndex: number;
+}
+
+const TiltCard: React.FC<TiltCardProps> = ({ children, className = '', colorIndex }) => {
+  const cardRef = useRef<HTMLElement>(null);
+  const glareRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const card = cardRef.current;
+    const glare = glareRef.current;
+    if (!card || !glare) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const rotX = (y - 0.5) * -14;
+    const rotY = (x - 0.5) * 14;
+
+    card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.035,1.035,1.035)`;
+    card.style.transition = 'transform 50ms linear';
+    glare.style.opacity = '1';
+    glare.style.background = `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(255,255,255,0.14) 0%, transparent 55%)`;
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    const card = cardRef.current;
+    const glare = glareRef.current;
+    if (!card || !glare) return;
+    card.style.transform = '';
+    card.style.transition = 'transform 450ms cubic-bezier(0.16,1,0.3,1), border-color 250ms ease, box-shadow 250ms ease';
+    glare.style.opacity = '0';
+  }, []);
+
+  return (
+    <article
+      ref={cardRef}
+      className={`project-card ${className}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ '--card-accent': CARD_COLORS[colorIndex % CARD_COLORS.length] } as React.CSSProperties}
+    >
+      <div ref={glareRef} className="project-glare" aria-hidden="true" />
+      {children}
+    </article>
+  );
+};
 
 const Projects: React.FC = () => {
   const { t, language } = useLanguage();
@@ -48,25 +107,18 @@ const Projects: React.FC = () => {
         searchQuery === '' ||
         project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         project.description.toLowerCase().includes(searchQuery.toLowerCase());
-
       const matchesTech =
         selectedTech === 'all' || (project.tech_stack || []).includes(selectedTech);
-
       return matchesSearch && matchesTech;
     });
 
     result.sort((a, b) => {
       switch (sortBy) {
-        case 'newest':
-          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-        case 'oldest':
-          return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
-        case 'title-asc':
-          return a.title.localeCompare(b.title);
-        case 'title-desc':
-          return b.title.localeCompare(a.title);
-        default:
-          return 0;
+        case 'newest': return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+        case 'oldest': return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+        case 'title-asc': return a.title.localeCompare(b.title);
+        case 'title-desc': return b.title.localeCompare(a.title);
+        default: return 0;
       }
     });
 
@@ -79,9 +131,7 @@ const Projects: React.FC = () => {
     return filteredAndSortedProjects.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   }, [filteredAndSortedProjects, currentPage]);
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery, selectedTech, sortBy]);
+  useEffect(() => { setCurrentPage(1); }, [searchQuery, selectedTech, sortBy]);
 
   const projects = paginatedProjects.map((p) => ({
     id: p.id,
@@ -133,9 +183,7 @@ const Projects: React.FC = () => {
               {language === 'pt' ? 'Nenhum projeto ainda' : 'No projects yet'}
             </h3>
             <p className="projects-empty-description">
-              {language === 'pt'
-                ? 'Comece adicionando seu primeiro projeto.'
-                : 'Start by adding your first project.'}
+              {language === 'pt' ? 'Comece adicionando seu primeiro projeto.' : 'Start by adding your first project.'}
             </p>
             {isAdmin && (
               <Link to="/admin" className="projects-empty-cta">
@@ -157,11 +205,7 @@ const Projects: React.FC = () => {
                   className="projects-search-input"
                 />
                 {searchQuery && (
-                  <button
-                    className="projects-search-clear"
-                    onClick={() => setSearchQuery('')}
-                    aria-label="Clear search"
-                  >
+                  <button className="projects-search-clear" onClick={() => setSearchQuery('')} aria-label="Clear search">
                     <X size={14} />
                   </button>
                 )}
@@ -177,7 +221,7 @@ const Projects: React.FC = () => {
                   ))}
                 </SelectContent>
               </Select>
-              <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortOption)}>
+              <Select value={sortBy} onValueChange={(v) => setSortBy(v as SortOption)}>
                 <SelectTrigger className="projects-sort-select">
                   <ArrowUpDown size={14} className="mr-1.5 opacity-60" />
                   <SelectValue />
@@ -219,12 +263,13 @@ const Projects: React.FC = () => {
                   className={`projects-grid stagger-children ${gridReveal.isVisible ? 'visible' : ''}`}
                 >
                   {projects.map((project, index) => (
-                    <article key={project.id} className="project-card">
+                    <TiltCard key={project.id} colorIndex={index}>
                       <div className="project-image">
                         {project.image ? (
                           <img src={project.image} alt={project.title} loading="lazy" />
                         ) : (
                           <div className="project-image-placeholder">
+                            <div className="project-placeholder-bg" aria-hidden="true" />
                             <span className="project-number">
                               {String(index + 1).padStart(2, '0')}
                             </span>
@@ -240,7 +285,7 @@ const Projects: React.FC = () => {
                                 className="project-overlay-btn"
                                 aria-label={`${t.projects.viewCode} — ${project.title}`}
                               >
-                                <Github size={16} />
+                                <Github size={15} />
                                 {t.projects.viewCode}
                               </a>
                             )}
@@ -252,7 +297,7 @@ const Projects: React.FC = () => {
                                 className="project-overlay-btn project-overlay-btn--demo"
                                 aria-label={`${t.projects.viewDemo} — ${project.title}`}
                               >
-                                <ExternalLink size={16} />
+                                <ExternalLink size={15} />
                                 {t.projects.viewDemo}
                               </a>
                             )}
@@ -264,7 +309,7 @@ const Projects: React.FC = () => {
                         <h3 className="project-title">{project.title}</h3>
                         <p className="project-description">{project.description}</p>
                         <div className="project-tech">
-                          {project.tech.map((tech) => (
+                          {project.tech.slice(0, 4).map((tech) => (
                             <span
                               key={tech}
                               className={`tech-tag ${selectedTech === tech ? 'tech-tag-active' : ''}`}
@@ -286,7 +331,7 @@ const Projects: React.FC = () => {
                               rel="noopener noreferrer"
                               className="project-link project-link--code"
                             >
-                              <Github size={15} />
+                              <Github size={14} />
                               {t.projects.viewCode}
                             </a>
                           )}
@@ -297,13 +342,13 @@ const Projects: React.FC = () => {
                               rel="noopener noreferrer"
                               className="project-link project-link--demo"
                             >
-                              <ExternalLink size={15} />
+                              <ExternalLink size={14} />
                               {t.projects.viewDemo}
                             </a>
                           )}
                         </div>
                       </div>
-                    </article>
+                    </TiltCard>
                   ))}
                 </div>
 
