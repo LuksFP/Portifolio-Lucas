@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -28,7 +28,7 @@ export const useProjects = () => {
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
-  const fetchProjects = async () => {
+  const fetchProjects = useCallback(async () => {
     try {
       setLoading(true);
       const { data, error } = await supabase
@@ -38,16 +38,17 @@ export const useProjects = () => {
 
       if (error) throw error;
       setProjects(data || []);
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Erro inesperado';
       toast({
         title: 'Erro ao carregar projetos',
-        description: error.message,
+        description: message,
         variant: 'destructive',
       });
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
 
   const createProject = async (project: ProjectInput) => {
     try {
@@ -68,10 +69,11 @@ export const useProjects = () => {
         description: 'O projeto foi adicionado com sucesso.',
       });
       return data;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Erro inesperado';
       toast({
         title: 'Erro ao criar projeto',
-        description: error.message,
+        description: message,
         variant: 'destructive',
       });
       throw error;
@@ -95,10 +97,11 @@ export const useProjects = () => {
         description: 'As alterações foram salvas.',
       });
       return data;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Erro inesperado';
       toast({
         title: 'Erro ao atualizar projeto',
-        description: error.message,
+        description: message,
         variant: 'destructive',
       });
       throw error;
@@ -119,10 +122,11 @@ export const useProjects = () => {
         title: 'Projeto excluído!',
         description: 'O projeto foi removido com sucesso.',
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Erro inesperado';
       toast({
         title: 'Erro ao excluir projeto',
-        description: error.message,
+        description: message,
         variant: 'destructive',
       });
       throw error;
@@ -131,7 +135,7 @@ export const useProjects = () => {
 
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, [fetchProjects]);
 
   return {
     projects,

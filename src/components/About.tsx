@@ -31,7 +31,23 @@ const About: React.FC = () => {
 
         <div className="about-container">
           <div className="about-content">
-            <div 
+            <div
+              ref={textReveal.ref}
+              className={`reveal ${textReveal.isVisible ? 'visible' : ''}`}
+            >
+              <div className="about-profile">
+                <div className="about-avatar" aria-hidden="true">LK</div>
+                <div className="about-profile-meta">
+                  <p className="about-profile-name">Lucas Kayck Franco Pinheiro</p>
+                  <span className="about-badge">
+                    <span className="about-badge-dot" />
+                    {language === 'pt' ? 'Disponível para projetos' : 'Available for projects'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div
               ref={textReveal.ref}
               className={`about-text reveal ${textReveal.isVisible ? 'visible' : ''}`}
             >

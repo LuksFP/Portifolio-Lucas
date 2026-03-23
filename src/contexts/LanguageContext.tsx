@@ -47,6 +47,14 @@ interface Translations {
     github: string;
     cta: string;
   };
+  github: {
+    title: string;
+    subtitle: string;
+    viewAll: string;
+    noDescription: string;
+    noRepos: string;
+    updatedAt: string;
+  };
 }
 
 const translations: Record<Language, Translations> = {
@@ -105,6 +113,14 @@ const translations: Record<Language, Translations> = {
       github: 'GitHub',
       cta: 'Enviar Email',
     },
+    github: {
+      title: 'Repositórios GitHub',
+      subtitle: 'Meus projetos mais recentes no GitHub',
+      viewAll: 'Ver todos os repositórios',
+      noDescription: 'Sem descrição',
+      noRepos: 'Nenhum repositório público encontrado.',
+      updatedAt: 'Atualizado em',
+    },
   },
   en: {
     nav: {
@@ -160,6 +176,14 @@ const translations: Record<Language, Translations> = {
       linkedin: 'LinkedIn',
       github: 'GitHub',
       cta: 'Send Email',
+    },
+    github: {
+      title: 'GitHub Repositories',
+      subtitle: 'My most recent projects on GitHub',
+      viewAll: 'View all repositories',
+      noDescription: 'No description',
+      noRepos: 'No public repositories found.',
+      updatedAt: 'Updated on',
     },
   },
 };

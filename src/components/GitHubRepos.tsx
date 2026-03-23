@@ -1,28 +1,31 @@
 import React from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useGitHubRepos } from '../hooks/useGitHubRepos';
-import { Github, Star, GitFork, ExternalLink, Loader2, AlertCircle } from 'lucide-react';
+import { Github, Star, GitFork, ExternalLink, AlertCircle } from 'lucide-react';
 import { Skeleton } from './ui/skeleton';
 import '../styles/GitHubRepos.css';
 
 const GITHUB_USERNAME = 'LuksFP'; // Seu username do GitHub
 
 const GitHubRepos: React.FC = () => {
-  const { repos, loading, error } = useGitHubRepos({ 
-    username: GITHUB_USERNAME, 
+  const { t, language } = useLanguage();
+  const { repos, loading, error } = useGitHubRepos({
+    username: GITHUB_USERNAME,
     perPage: 6,
-    sort: 'pushed' 
+    sort: 'pushed'
   });
-  
+
   const titleReveal = useScrollReveal({ threshold: 0.2 });
   const gridReveal = useScrollReveal({ threshold: 0.1 });
 
   const formatDate = (dateString: string) => {
+    const locale = language === 'pt' ? 'pt-BR' : 'en-US';
     const date = new Date(dateString);
-    return date.toLocaleDateString('pt-BR', { 
-      day: '2-digit', 
-      month: 'short', 
-      year: 'numeric' 
+    return date.toLocaleDateString(locale, {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
     });
   };
 
@@ -55,10 +58,10 @@ const GitHubRepos: React.FC = () => {
         >
           <h2 className="section-title">
             <Github className="inline-block mr-3 mb-1" size={32} />
-            Repositórios GitHub
+            {t.github.title}
           </h2>
           <p className="section-subtitle">
-            Meus projetos mais recentes no GitHub
+            {t.github.subtitle}
           </p>
         </div>
 
@@ -85,7 +88,7 @@ const GitHubRepos: React.FC = () => {
         ) : repos.length === 0 ? (
           <div className="github-empty animate-fade-in">
             <Github className="w-12 h-12 mb-4 opacity-50" />
-            <p>Nenhum repositório público encontrado.</p>
+            <p>{t.github.noRepos}</p>
           </div>
         ) : (
           <div 
@@ -109,7 +112,7 @@ const GitHubRepos: React.FC = () => {
                 </div>
                 
                 <p className="github-repo-description">
-                  {repo.description || 'Sem descrição'}
+                  {repo.description || t.github.noDescription}
                 </p>
 
                 {repo.topics && repo.topics.length > 0 && (
@@ -141,7 +144,7 @@ const GitHubRepos: React.FC = () => {
                 </div>
 
                 <p className="github-updated">
-                  Atualizado em {formatDate(repo.pushed_at)}
+                  {t.github.updatedAt} {formatDate(repo.pushed_at)}
                 </p>
               </a>
             ))}
@@ -156,7 +159,7 @@ const GitHubRepos: React.FC = () => {
             className="github-cta-btn"
           >
             <Github size={20} />
-            Ver todos os repositórios
+            {t.github.viewAll}
           </a>
         </div>
       </div>

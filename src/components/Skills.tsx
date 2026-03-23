@@ -22,6 +22,7 @@ interface Skill {
   name: string;
   icon: React.ReactNode;
   color: string;
+  level: number; // 0–100
 }
 
 const Skills: React.FC = () => {
@@ -31,18 +32,18 @@ const Skills: React.FC = () => {
   const gridReveal = useScrollReveal({ threshold: 0.1 });
 
   const skills: Skill[] = [
-    { name: 'React', icon: <SiReact />, color: '#61DAFB' },
-    { name: 'TypeScript', icon: <SiTypescript />, color: '#3178C6' },
-    { name: 'JavaScript', icon: <SiJavascript />, color: '#F7DF1E' },
-    { name: 'HTML5', icon: <SiHtml5 />, color: '#E34F26' },
-    { name: 'CSS3', icon: <SiCss3 />, color: '#1572B6' },
-    { name: 'Node.js', icon: <SiNodedotjs />, color: '#339933' },
-    { name: 'Git', icon: <SiGit />, color: '#F05032' },
-    { name: 'Tailwind', icon: <SiTailwindcss />, color: '#06B6D4' },
-    { name: 'Next.js', icon: <SiNextdotjs />, color: '#000000' },
-    { name: 'Redux', icon: <SiRedux />, color: '#764ABC' },
-    { name: 'Figma', icon: <SiFigma />, color: '#F24E1E' },
-    { name: 'REST API', icon: <TbApi />, color: '#FF6C37' },
+    { name: 'React', icon: <SiReact />, color: '#61DAFB', level: 90 },
+    { name: 'TypeScript', icon: <SiTypescript />, color: '#3178C6', level: 85 },
+    { name: 'JavaScript', icon: <SiJavascript />, color: '#F7DF1E', level: 90 },
+    { name: 'HTML5', icon: <SiHtml5 />, color: '#E34F26', level: 95 },
+    { name: 'CSS3', icon: <SiCss3 />, color: '#1572B6', level: 88 },
+    { name: 'Node.js', icon: <SiNodedotjs />, color: '#339933', level: 70 },
+    { name: 'Git', icon: <SiGit />, color: '#F05032', level: 80 },
+    { name: 'Tailwind', icon: <SiTailwindcss />, color: '#06B6D4', level: 88 },
+    { name: 'Next.js', icon: <SiNextdotjs />, color: '#6b7280', level: 75 },
+    { name: 'Redux', icon: <SiRedux />, color: '#764ABC', level: 72 },
+    { name: 'Figma', icon: <SiFigma />, color: '#F24E1E', level: 78 },
+    { name: 'REST API', icon: <TbApi />, color: '#FF6C37', level: 82 },
   ];
 
   return (
@@ -66,6 +67,12 @@ const Skills: React.FC = () => {
                 {skill.icon}
               </div>
               <span className="skill-name">{skill.name}</span>
+              <div className="skill-level" aria-label={`${skill.level}% proficiency`}>
+                <div
+                  className="skill-level-bar"
+                  style={{ width: `${skill.level}%`, backgroundColor: skill.color }}
+                />
+              </div>
             </div>
           ))}
         </div>

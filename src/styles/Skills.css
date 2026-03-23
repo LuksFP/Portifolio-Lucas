@@ -65,6 +65,23 @@
   text-align: center;
 }
 
+/* Proficiency bar */
+.skill-level {
+  width: 100%;
+  height: 3px;
+  background: hsl(var(--border));
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-top: auto;
+}
+
+.skill-level-bar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  opacity: 0.75;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 /* Skill Categories */
 .skills-categories {
   display: grid;
