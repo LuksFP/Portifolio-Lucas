@@ -12,6 +12,7 @@ const Navbar: React.FC = () => {
   const { isAdmin } = useAdmin();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +20,28 @@ const Navbar: React.FC = () => {
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = ['home', 'about', 'projects', 'github', 'skills', 'contact'];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.35, rootMargin: '-60px 0px -40% 0px' }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const scrollToSection = (sectionId: string) => {
@@ -53,7 +76,7 @@ const Navbar: React.FC = () => {
             <li key={link.id}>
               <a
                 href={`#${link.id}`}
-                className="navbar-link"
+                className={`navbar-link ${activeSection === link.id ? 'active' : ''}`}
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection(link.id);
@@ -67,23 +90,23 @@ const Navbar: React.FC = () => {
 
         <div className="navbar-actions">
           {isAdmin && (
-            <Link 
-              to="/admin" 
+            <Link
+              to="/admin"
               className="admin-link"
               title="Painel Admin"
             >
               <Settings size={18} />
             </Link>
           )}
-          <button 
-            className="language-toggle" 
+          <button
+            className="language-toggle"
             onClick={toggleLanguage}
             aria-label="Toggle language"
           >
             {language.toUpperCase()}
           </button>
-          <button 
-            className="theme-toggle" 
+          <button
+            className="theme-toggle"
             onClick={toggleTheme}
             aria-label="Toggle theme"
           >
@@ -91,10 +114,11 @@ const Navbar: React.FC = () => {
           </button>
         </div>
 
-        <button 
+        <button
           className={`mobile-menu-btn ${mobileOpen ? 'active' : ''}`}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
         >
           <span></span>
           <span></span>
@@ -108,7 +132,7 @@ const Navbar: React.FC = () => {
             <li key={link.id}>
               <a
                 href={`#${link.id}`}
-                className="mobile-nav-link"
+                className={`mobile-nav-link ${activeSection === link.id ? 'active' : ''}`}
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection(link.id);
@@ -121,8 +145,8 @@ const Navbar: React.FC = () => {
         </ul>
         <div className="mobile-nav-actions">
           {isAdmin && (
-            <Link 
-              to="/admin" 
+            <Link
+              to="/admin"
               className="admin-link"
               title="Painel Admin"
               onClick={() => setMobileOpen(false)}

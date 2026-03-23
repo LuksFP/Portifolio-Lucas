@@ -6,8 +6,9 @@ import '../styles/ScrollReveal.css';
 
 const About: React.FC = () => {
   const { t, language } = useLanguage();
-  
+
   const titleReveal = useScrollReveal({ threshold: 0.2 });
+  const profileReveal = useScrollReveal({ threshold: 0.1 });
   const textReveal = useScrollReveal({ threshold: 0.1 });
   const statsReveal = useScrollReveal({ threshold: 0.2 });
 
@@ -15,13 +16,13 @@ const About: React.FC = () => {
     { number: '3+', label: language === 'pt' ? 'Anos de Experiência' : 'Years Experience' },
     { number: '10+', label: language === 'pt' ? 'Projetos Concluídos' : 'Projects Completed' },
     { number: '10+', label: language === 'pt' ? 'Clientes Satisfeitos' : 'Happy Clients' },
-    { number: '10+', label: language === 'pt' ? 'Tecnologias' : 'Technologies' },
+    { number: '12+', label: language === 'pt' ? 'Tecnologias' : 'Technologies' },
   ];
 
   return (
     <section id="about" className="about section">
       <div className="container">
-        <div 
+        <div
           ref={titleReveal.ref}
           className={`reveal ${titleReveal.isVisible ? 'visible' : ''}`}
         >
@@ -31,9 +32,10 @@ const About: React.FC = () => {
 
         <div className="about-container">
           <div className="about-content">
+            {/* Profile Card */}
             <div
-              ref={textReveal.ref}
-              className={`reveal ${textReveal.isVisible ? 'visible' : ''}`}
+              ref={profileReveal.ref}
+              className={`reveal ${profileReveal.isVisible ? 'visible' : ''}`}
             >
               <div className="about-profile">
                 <div className="about-avatar" aria-hidden="true">LK</div>
@@ -47,6 +49,7 @@ const About: React.FC = () => {
               </div>
             </div>
 
+            {/* About Text */}
             <div
               ref={textReveal.ref}
               className={`about-text reveal ${textReveal.isVisible ? 'visible' : ''}`}
@@ -56,12 +59,13 @@ const About: React.FC = () => {
               <p>{t.about.p3}</p>
             </div>
 
-            <div 
+            {/* Stats */}
+            <div
               ref={statsReveal.ref}
               className={`about-stats stagger-children ${statsReveal.isVisible ? 'visible' : ''}`}
             >
-              {stats.map((stat, index) => (
-                <div key={index} className="stat-item">
+              {stats.map((stat) => (
+                <div key={stat.label} className="stat-item">
                   <div className="stat-number">{stat.number}</div>
                   <div className="stat-label">{stat.label}</div>
                 </div>

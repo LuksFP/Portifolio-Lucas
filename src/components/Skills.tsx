@@ -70,7 +70,7 @@ const Skills: React.FC = () => {
               <div className="skill-level" aria-label={`${skill.level}% proficiency`}>
                 <div
                   className="skill-level-bar"
-                  style={{ width: `${skill.level}%`, backgroundColor: skill.color }}
+                  style={{ '--level': `${skill.level}%`, backgroundColor: skill.color } as React.CSSProperties}
                 />
               </div>
             </div>
