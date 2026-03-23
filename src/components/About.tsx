@@ -14,9 +14,9 @@ const About: React.FC = () => {
 
   const stats = [
     { number: '3+', label: language === 'pt' ? 'Anos de Experiência' : 'Years Experience' },
-    { number: '10+', label: language === 'pt' ? 'Projetos Concluídos' : 'Projects Completed' },
-    { number: '10+', label: language === 'pt' ? 'Clientes Satisfeitos' : 'Happy Clients' },
-    { number: '12+', label: language === 'pt' ? 'Tecnologias' : 'Technologies' },
+    { number: '7+', label: language === 'pt' ? 'Projetos Concluídos' : 'Projects Completed' },
+    { number: '20+', label: language === 'pt' ? 'Tecnologias' : 'Technologies' },
+    { number: '2', label: language === 'pt' ? 'Sistemas em Produção' : 'Production Systems' },
   ];
 
   return (

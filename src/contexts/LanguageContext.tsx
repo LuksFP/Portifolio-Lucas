@@ -6,9 +6,18 @@ interface Translations {
   nav: {
     home: string;
     about: string;
+    experience: string;
     projects: string;
     skills: string;
     contact: string;
+  };
+  experience: {
+    title: string;
+    subtitle: string;
+    workTitle: string;
+    educationTitle: string;
+    certsTitle: string;
+    langsTitle: string;
   };
   hero: {
     greeting: string;
@@ -62,9 +71,18 @@ const translations: Record<Language, Translations> = {
     nav: {
       home: 'Início',
       about: 'Sobre',
+      experience: 'Trajetória',
       projects: 'Projetos',
       skills: 'Skills',
       contact: 'Contato',
+    },
+    experience: {
+      title: 'Trajetória',
+      subtitle: 'Experiência profissional, formação acadêmica, certificações e idiomas',
+      workTitle: 'Experiência Profissional',
+      educationTitle: 'Formação Acadêmica',
+      certsTitle: 'Certificações',
+      langsTitle: 'Idiomas',
     },
     hero: {
       greeting: 'Olá, eu sou',
@@ -77,9 +95,9 @@ const translations: Record<Language, Translations> = {
     about: {
       title: 'Sobre Mim',
       subtitle: 'Conheça um pouco mais sobre minha jornada e paixão pelo desenvolvimento',
-      p1: 'Sou um desenvolvedor front-end apaixonado por criar interfaces bonitas e funcionais. Com mais de 3 anos de experiência, tenho trabalhado com as tecnologias mais modernas do mercado.',
-      p2: 'Minha abordagem combina design centrado no usuário com código limpo e performático. Acredito que a melhor experiência do usuário vem da união entre estética e funcionalidade.',
-      p3: 'Quando não estou codando, você pode me encontrar explorando novas tecnologias, contribuindo para projetos open source ou compartilhando conhecimento com a comunidade dev.',
+      p1: 'Sou Engenheiro de Software com 21 anos, baseado em Guarujá, SP. Atuo como Fullstack Developer, Arquiteto de Sistemas, QA e UI/UX Designer na Powertec Tecnologia, entregando sistemas em produção real para academias e clientes governamentais.',
+      p2: 'Tenho sólida experiência em React, TypeScript, Node.js, PostgreSQL e Clean Architecture. Construo desde interfaces responsivas até APIs REST escaláveis, passando por pipelines CI/CD, containerização com Docker e deploys em Vercel, Render e Railway.',
+      p3: 'Sou movido por qualidade de código, boas práticas e impacto real. Cada projeto é uma oportunidade de unir arquitetura sólida, experiência de usuário excepcional e entrega contínua.',
     },
     projects: {
       title: 'Meus Projetos',
@@ -126,9 +144,18 @@ const translations: Record<Language, Translations> = {
     nav: {
       home: 'Home',
       about: 'About',
+      experience: 'Journey',
       projects: 'Projects',
       skills: 'Skills',
       contact: 'Contact',
+    },
+    experience: {
+      title: 'Journey',
+      subtitle: 'Professional experience, academic background, certifications and languages',
+      workTitle: 'Work Experience',
+      educationTitle: 'Education',
+      certsTitle: 'Certifications',
+      langsTitle: 'Languages',
     },
     hero: {
       greeting: "Hi, I'm",
@@ -141,9 +168,9 @@ const translations: Record<Language, Translations> = {
     about: {
       title: 'About Me',
       subtitle: 'Learn a little more about my journey and passion for development',
-      p1: "I'm a front-end developer passionate about creating beautiful and functional interfaces. With over 3 years of experience, I've been working with the most modern technologies in the market.",
-      p2: 'My approach combines user-centered design with clean and performant code. I believe the best user experience comes from the union of aesthetics and functionality.',
-      p3: "When I'm not coding, you can find me exploring new technologies, contributing to open source projects or sharing knowledge with the dev community.",
+      p1: "I'm a 21-year-old Software Engineer based in Guarujá, Brazil. I work as Fullstack Developer, Software Architect, QA and UI/UX Designer at Powertec Tecnologia, delivering production systems for gyms and government clients.",
+      p2: 'I have strong experience with React, TypeScript, Node.js, PostgreSQL and Clean Architecture — from responsive interfaces to scalable REST APIs, CI/CD pipelines, Docker containerization and cloud deploys.',
+      p3: "I'm driven by code quality, best practices and real impact. Every project is a chance to combine solid architecture, exceptional user experience and continuous delivery.",
     },
     projects: {
       title: 'My Projects',
