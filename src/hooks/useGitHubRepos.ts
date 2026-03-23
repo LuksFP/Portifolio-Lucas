@@ -58,8 +58,8 @@ export const useGitHubRepos = ({ username, perPage = 6, sort = 'pushed' }: UseGi
 
         const data = await response.json();
         setRepos(data);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err: unknown) {
+        setError(err instanceof Error ? err.message : 'Erro ao carregar repositórios');
       } finally {
         setLoading(false);
       }

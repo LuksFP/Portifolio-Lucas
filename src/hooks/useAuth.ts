@@ -42,11 +42,9 @@ export const useAuth = () => {
         title: 'Login realizado!',
         description: 'Bem-vindo de volta.',
       });
-    } catch (error: any) {
-      let message = error.message;
-      if (error.message === 'Invalid login credentials') {
-        message = 'Email ou senha incorretos.';
-      }
+    } catch (error: unknown) {
+      const raw = error instanceof Error ? error.message : 'Erro inesperado';
+      const message = raw === 'Invalid login credentials' ? 'Email ou senha incorretos.' : raw;
       toast({
         title: 'Erro no login',
         description: message,
@@ -74,11 +72,9 @@ export const useAuth = () => {
         title: 'Conta criada!',
         description: 'Você já pode fazer login.',
       });
-    } catch (error: any) {
-      let message = error.message;
-      if (error.message.includes('already registered')) {
-        message = 'Este email já está cadastrado.';
-      }
+    } catch (error: unknown) {
+      const raw = error instanceof Error ? error.message : 'Erro inesperado';
+      const message = raw.includes('already registered') ? 'Este email já está cadastrado.' : raw;
       toast({
         title: 'Erro no cadastro',
         description: message,
@@ -97,10 +93,11 @@ export const useAuth = () => {
         title: 'Logout realizado!',
         description: 'Até logo.',
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Erro inesperado';
       toast({
         title: 'Erro no logout',
-        description: error.message,
+        description: message,
         variant: 'destructive',
       });
     }
