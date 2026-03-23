@@ -12,6 +12,16 @@
   padding-bottom: 5rem;
 }
 
+/* ── Matrix rain layer ── */
+.hero-matrix {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 70%, transparent 100%);
+}
+
 /* ── Orbs ── */
 .hero-parallax {
   position: absolute;

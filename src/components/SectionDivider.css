@@ -1,0 +1,31 @@
+.sdiv {
+  overflow: hidden;
+  border-top: 1px solid var(--border-col);
+  border-bottom: 1px solid var(--border-col);
+  padding: 0.7rem 0;
+  background: var(--surface);
+}
+
+.sdiv--accent {
+  background: var(--accent);
+  border-color: transparent;
+}
+
+.sdiv-track {
+  display: flex;
+  white-space: nowrap;
+  width: max-content;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+  color: var(--muted-text);
+  animation: marquee 22s linear infinite;
+}
+
+.sdiv--accent .sdiv-track {
+  color: rgba(255,255,255,0.9);
+}
+
+.sdiv-track--reverse {
+  animation-direction: reverse;
+}

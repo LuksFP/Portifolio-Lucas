@@ -46,8 +46,21 @@
   position: absolute;
   left: 0; top: 8px; bottom: 8px;
   width: 1px;
-  background: var(--border-col);
+  background: linear-gradient(
+    to bottom,
+    var(--accent) 0%,
+    var(--border-col) 100%
+  );
+  transform-origin: top center;
+  transform: scaleY(0);
+  transition: transform 1.4s cubic-bezier(0.16,1,0.3,1);
 }
+
+.timeline.line-drawn::before {
+  transform: scaleY(1);
+}
+
+/* Dot pulse on current item */
 
 .timeline-item {
   position: relative;

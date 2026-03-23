@@ -352,6 +352,21 @@ body::before {
   color: var(--text);
 }
 
+/* ─── Spotlight cursor glow ────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9996;
+  pointer-events: none;
+  background: radial-gradient(
+    650px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
+    rgba(255,61,0,0.045) 0%,
+    transparent 40%
+  );
+  transition: background 0.1s ease;
+}
+
 /* ─── Hide Lovable Badge ───────────────────────────────────── */
 a[href*="lovable.dev"],
 iframe[src*="lovable.dev"],

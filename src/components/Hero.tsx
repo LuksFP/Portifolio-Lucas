@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ArrowRight, ChevronDown } from 'lucide-react';
+import MatrixRain from './MatrixRain';
 import '../styles/Hero.css';
 
 const ROLES_PT = [
@@ -218,6 +219,11 @@ const Hero: React.FC = () => {
             style={{ transform: `translate(${scrollY * 0.02}px, ${scrollY * 0.05}px)` }} />
           <div className="parallax-grid"
             style={{ transform: `translateY(${scrollY * 0.15}px)` }} />
+        </div>
+
+        {/* Matrix rain — subtle background layer */}
+        <div className="hero-matrix" aria-hidden="true">
+          <MatrixRain opacity={0.09} color="#BCFF00" />
         </div>
 
         {/* Background scrolling text */}

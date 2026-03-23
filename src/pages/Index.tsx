@@ -10,6 +10,8 @@ import Skills from '../components/Skills';
 import Contact from '../components/Contact';
 import Experience from '../components/Experience';
 import Loader from '../components/Loader';
+import Spotlight from '../components/Spotlight';
+import SectionDivider from '../components/SectionDivider';
 
 const Index: React.FC = () => {
   const { language } = useLanguage();
@@ -21,14 +23,20 @@ const Index: React.FC = () => {
       <a href="#about" className="skip-link">
         {language === 'pt' ? 'Pular para o conteúdo' : 'Skip to content'}
       </a>
+      <Spotlight />
       <ScrollProgress />
       <Navbar />
       <main>
         <Hero />
+        <SectionDivider />
         <About />
+        <SectionDivider reverse />
         <Experience />
+        <SectionDivider accent />
         <Projects />
+        <SectionDivider reverse />
         <GitHubRepos />
+        <SectionDivider />
         <Skills />
         <Contact />
       </main>
