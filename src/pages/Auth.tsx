@@ -9,8 +9,8 @@ import { Eye, EyeOff, ArrowLeft, Lock, Mail, Sparkles } from 'lucide-react';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 
-// Email autorizado para acessar o admin
-const ADMIN_EMAIL = 'lucas.kfrancopinheiro@gmail.com';
+// Email autorizado — lê de env var ou fallback
+const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL || 'lucas.kfrancopinheiro@gmail.com';
 
 const authSchema = z.object({
   email: z.string().trim().email('Email inválido').max(255),

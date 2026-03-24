@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 export interface GitHubRepo {
   id: number;
@@ -21,52 +21,42 @@ interface UseGitHubReposOptions {
   sort?: 'updated' | 'created' | 'pushed' | 'full_name';
 }
 
-export const useGitHubRepos = ({ username, perPage = 6, sort = 'pushed' }: UseGitHubReposOptions) => {
-  const [repos, setRepos] = useState<GitHubRepo[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const fetchRepos = async (
+  username: string,
+  perPage: number,
+  sort: string,
+): Promise<GitHubRepo[]> => {
+  const response = await fetch(
+    `https://api.github.com/users/${username}/repos?per_page=${perPage}&sort=${sort}&direction=desc`,
+    { headers: { Accept: 'application/vnd.github.v3+json' } },
+  );
 
-  useEffect(() => {
-    const fetchRepos = async () => {
-      if (!username) {
-        setLoading(false);
-        return;
-      }
+  if (!response.ok) {
+    if (response.status === 404) throw new Error('Usuário não encontrado');
+    if (response.status === 403)
+      throw new Error('Limite de requisições atingido. Tente novamente mais tarde.');
+    throw new Error('Erro ao carregar repositórios');
+  }
 
-      try {
-        setLoading(true);
-        setError(null);
-        
-        const response = await fetch(
-          `https://api.github.com/users/${username}/repos?per_page=${perPage}&sort=${sort}&direction=desc`,
-          {
-            headers: {
-              'Accept': 'application/vnd.github.v3+json',
-            },
-          }
-        );
+  return response.json();
+};
 
-        if (!response.ok) {
-          if (response.status === 404) {
-            throw new Error('Usuário não encontrado');
-          }
-          if (response.status === 403) {
-            throw new Error('Limite de requisições atingido. Tente novamente mais tarde.');
-          }
-          throw new Error('Erro ao carregar repositórios');
-        }
+export const useGitHubRepos = ({
+  username,
+  perPage = 6,
+  sort = 'pushed',
+}: UseGitHubReposOptions) => {
+  const { data, isLoading, error } = useQuery<GitHubRepo[], Error>({
+    queryKey: ['github-repos', username, perPage, sort],
+    queryFn: () => fetchRepos(username, perPage, sort),
+    enabled: !!username,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  });
 
-        const data = await response.json();
-        setRepos(data);
-      } catch (err: unknown) {
-        setError(err instanceof Error ? err.message : 'Erro ao carregar repositórios');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRepos();
-  }, [username, perPage, sort]);
-
-  return { repos, loading, error };
+  return {
+    repos: data ?? [],
+    loading: isLoading,
+    error: error?.message ?? null,
+  };
 };

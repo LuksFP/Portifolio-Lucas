@@ -1,16 +1,11 @@
-/* ─── Loader ────────────────────────────────────────────────── */
 .loader {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: #0C0C0E;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  position: fixed; inset: 0; z-index: 99999;
+  background: var(--gradient-hero);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
   gap: 2rem;
   transition: clip-path 700ms cubic-bezier(0.76,0,0.24,1),
-              opacity 700ms ease;
+              opacity 400ms ease;
   clip-path: inset(0 0 0 0);
 }
 
@@ -20,38 +15,37 @@
 }
 
 .loader-name {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(5rem, 18vw, 12rem);
-  color: #F0EFE9;
-  line-height: 1;
-  letter-spacing: 0.06em;
-  animation: loader-name-in 0.6s cubic-bezier(0.16,1,0.3,1) both;
+  font-weight: 700; color: #fff;
+  line-height: 1; letter-spacing: -0.04em;
+  animation: loader-name-in 0.6s var(--ease-out) both;
+  text-shadow: 0 0 60px rgba(var(--accent-rgb), 0.3);
 }
 
 @keyframes loader-name-in {
-  from { opacity: 0; transform: translateY(40px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .loader-bar-wrap {
   width: clamp(180px, 30vw, 320px);
   height: 2px;
   background: rgba(255,255,255,0.08);
-  border-radius: 2px;
-  overflow: hidden;
+  border-radius: 2px; overflow: hidden;
 }
 
 .loader-bar {
   height: 100%;
-  background: #FF3D00;
+  background: var(--gradient-primary);
   border-radius: 2px;
   transition: width 60ms linear;
-  box-shadow: 0 0 12px rgba(255,61,0,0.6);
+  box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.5);
 }
 
 .loader-count {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.2em;
-  color: rgba(240,239,233,0.3);
+  font-family: var(--font-mono);
+  font-size: 0.8rem; letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.25);
+  animation: fadeIn 0.4s ease 0.3s both;
 }
