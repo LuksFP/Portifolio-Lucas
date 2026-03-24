@@ -69,7 +69,10 @@ const Navbar: React.FC = () => {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         <a href="#home" className="navbar-logo" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
-          {'<'}Dev<span>/</span>{'>'}
+          <span className="logo-bracket">{'<'}</span>
+          <span className="logo-name">Dev</span>
+          <span className="logo-slash">/</span>
+          <span className="logo-bracket">{'>'}</span>
         </a>
 
         <ul className="navbar-nav">

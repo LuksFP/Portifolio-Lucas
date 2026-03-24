@@ -15,5 +15,5 @@
   background: var(--gradient-primary);
   border-radius: 0 var(--radius-full) var(--radius-full) 0;
   transition: width 0.1s linear;
-  box-shadow: 0 0 10px hsl(var(--color-primary) / 0.5);
+  box-shadow: 0 0 12px hsl(var(--color-primary) / 0.6), 0 0 4px hsl(var(--color-secondary) / 0.4);
 }

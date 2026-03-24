@@ -7,21 +7,29 @@ import '../styles/ScrollReveal.css';
 const About: React.FC = () => {
   const { t, language } = useLanguage();
 
-  const titleReveal = useScrollReveal({ threshold: 0.2 });
-  const profileReveal = useScrollReveal({ threshold: 0.1 });
-  const textReveal = useScrollReveal({ threshold: 0.1 });
-  const statsReveal = useScrollReveal({ threshold: 0.2 });
+  const titleReveal   = useScrollReveal({ threshold: 0.2 });
+  const leftReveal    = useScrollReveal({ threshold: 0.08 });
+  const rightReveal   = useScrollReveal({ threshold: 0.08 });
+  const statsReveal   = useScrollReveal({ threshold: 0.15 });
 
   const stats = [
     { number: '3+', label: language === 'pt' ? 'Anos de Experiência' : 'Years Experience' },
     { number: '7+', label: language === 'pt' ? 'Projetos Concluídos' : 'Projects Completed' },
     { number: '20+', label: language === 'pt' ? 'Tecnologias' : 'Technologies' },
-    { number: '2', label: language === 'pt' ? 'Sistemas em Produção' : 'Production Systems' },
+    { number: '2',   label: language === 'pt' ? 'Sistemas em Produção' : 'Production Systems' },
+  ];
+
+  const infoPills = [
+    { icon: '📍', text: language === 'pt' ? 'Guarujá, SP — Remoto' : 'Guarujá, SP — Remote' },
+    { icon: '💼', text: language === 'pt' ? 'Powertec Tecnologia' : 'Powertec Tecnologia' },
+    { icon: '🎓', text: language === 'pt' ? 'Análise de Sistemas · 2026' : 'Systems Analysis · 2026' },
   ];
 
   return (
     <section id="about" className="about section">
       <div className="container">
+
+        {/* Header */}
         <div
           ref={titleReveal.ref}
           className={`reveal ${titleReveal.isVisible ? 'visible' : ''}`}
@@ -31,46 +39,66 @@ const About: React.FC = () => {
         </div>
 
         <div className="about-container">
-          <div className="about-content">
-            {/* Profile Card */}
+          <div className="about-grid">
+
+            {/* ── LEFT: Profile Card ── */}
             <div
-              ref={profileReveal.ref}
-              className={`reveal ${profileReveal.isVisible ? 'visible' : ''}`}
+              ref={leftReveal.ref}
+              className={`about-profile-col reveal-left ${leftReveal.isVisible ? 'visible' : ''}`}
             >
-              <div className="about-profile">
-                <div className="about-avatar" aria-hidden="true">LK</div>
-                <div className="about-profile-meta">
-                  <p className="about-profile-name">Lucas Kayck Franco Pinheiro</p>
-                  <span className="about-badge">
-                    <span className="about-badge-dot" />
-                    {language === 'pt' ? 'Disponível para projetos' : 'Available for projects'}
-                  </span>
+              <div className="about-profile-card">
+                {/* Avatar with rotating ring */}
+                <div className="about-avatar-wrapper">
+                  <div className="about-avatar-ring" />
+                  <div className="about-avatar" aria-hidden="true">LK</div>
+                </div>
+
+                <p className="about-profile-name">Lucas Kayck Franco Pinheiro</p>
+                <p className="about-profile-role">
+                  {language === 'pt' ? 'Engenheiro de Software · UI/UX' : 'Software Engineer · UI/UX'}
+                </p>
+
+                <span className="about-badge">
+                  <span className="about-badge-dot" />
+                  {language === 'pt' ? 'Disponível para projetos' : 'Available for projects'}
+                </span>
+
+                <div className="about-info-pills">
+                  {infoPills.map((pill, i) => (
+                    <div key={i} className="about-info-pill">
+                      <span className="about-info-pill-icon">{pill.icon}</span>
+                      {pill.text}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* About Text */}
+            {/* ── RIGHT: Text + Stats ── */}
             <div
-              ref={textReveal.ref}
-              className={`about-text reveal ${textReveal.isVisible ? 'visible' : ''}`}
+              ref={rightReveal.ref}
+              className={`about-content-col reveal-right ${rightReveal.isVisible ? 'visible' : ''}`}
             >
-              <p>{t.about.p1}</p>
-              <p>{t.about.p2}</p>
-              <p>{t.about.p3}</p>
+              <div className="about-text">
+                <p>{t.about.p1}</p>
+                <p>{t.about.p2}</p>
+                <p>{t.about.p3}</p>
+              </div>
+
+              {/* Stats */}
+              <div
+                ref={statsReveal.ref}
+                className={`about-stats stagger-children ${statsReveal.isVisible ? 'visible' : ''}`}
+              >
+                {stats.map((stat) => (
+                  <div key={stat.label} className="stat-item">
+                    <div className="stat-number">{stat.number}</div>
+                    <div className="stat-label">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Stats */}
-            <div
-              ref={statsReveal.ref}
-              className={`about-stats stagger-children ${statsReveal.isVisible ? 'visible' : ''}`}
-            >
-              {stats.map((stat) => (
-                <div key={stat.label} className="stat-item">
-                  <div className="stat-number">{stat.number}</div>
-                  <div className="stat-label">{stat.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
