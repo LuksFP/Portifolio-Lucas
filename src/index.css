@@ -243,3 +243,24 @@ div[style*="Edit with Lovable"], .lovable-badge {
   visibility: hidden !important; pointer-events: none !important;
   position: absolute !important; z-index: -9999 !important;
 }
+
+/* ══════════════════════════════════════════
+   REDUCED MOTION
+══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html { scroll-behavior: auto; }
+  .parallax-orb, .hero-bg-text-track, .hero-matrix,
+  .contact-orb, .notfound-orb { display: none !important; }
+  .cursor-dot, .cursor-ring { display: none !important; }
+  .reveal, .reveal-left, .reveal-right, .reveal-scale,
+  .stagger-children > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

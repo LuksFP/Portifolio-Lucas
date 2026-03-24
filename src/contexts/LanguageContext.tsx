@@ -224,7 +224,15 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('pt');
+  const [language, setLanguageState] = useState<Language>(() => {
+    const saved = localStorage.getItem('portfolio-lang');
+    return saved === 'en' || saved === 'pt' ? saved : 'pt';
+  });
+
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+    localStorage.setItem('portfolio-lang', lang);
+  };
 
   const value = {
     language,
