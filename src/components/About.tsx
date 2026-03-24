@@ -65,9 +65,9 @@ const About: React.FC = () => {
   const statsReveal  = useScrollReveal({ threshold: 0.2 });
 
   const stats = [
-    { target: 3, suffix: '+', label: language === 'pt' ? 'Anos de Experiência' : 'Years Experience' },
-    { target: 12, suffix: '+', label: language === 'pt' ? 'Projetos Concluídos' : 'Projects Completed' },
-    { target: 20, suffix: '+', label: language === 'pt' ? 'Tecnologias' : 'Technologies' },
+    { target: 3,  suffix: '+', label: language === 'pt' ? 'Anos de Experiência' : 'Years Experience' },
+    { target: 12, suffix: '+', label: language === 'pt' ? 'Projetos Entregues' : 'Projects Delivered' },
+    { target: 25, suffix: '+', label: language === 'pt' ? 'Tecnologias' : 'Technologies' },
     { target: 2,  suffix: '',  label: language === 'pt' ? 'Sistemas em Produção' : 'Production Systems' },
   ];
 
