@@ -1,184 +1,147 @@
-import React, { useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import { Mail, Linkedin, Github, MapPin, Clock, Send } from 'lucide-react';
+import { Mail, Linkedin, Github, MapPin, Clock, ArrowUpRight } from 'lucide-react';
 import '../styles/Contact.css';
 import '../styles/ScrollReveal.css';
 
+const useMagneticLink = () => {
+  const ref = useRef<HTMLAnchorElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const onMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const radius = 160;
+      if (dist < radius) {
+        const p = (1 - dist / radius) * 0.22;
+        el.style.transform = `translate(${dx * p}px, ${dy * p}px)`;
+      } else if (el.style.transform) {
+        el.style.transform = '';
+      }
+    };
+    const onLeave = () => { el.style.transform = ''; };
+    window.addEventListener('mousemove', onMove);
+    el.addEventListener('mouseleave', onLeave);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      el.removeEventListener('mouseleave', onLeave);
+    };
+  }, []);
+  return ref;
+};
+
 const Contact: React.FC = () => {
-  const { t, language } = useLanguage();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const { language } = useLanguage();
+  const eyebrowReveal  = useScrollReveal({ threshold: 0.2 });
+  const headlineReveal = useScrollReveal({ threshold: 0.15 });
+  const emailReveal    = useScrollReveal({ threshold: 0.1 });
+  const socialReveal   = useScrollReveal({ threshold: 0.1 });
+  const emailMagnetic  = useMagneticLink();
+  const isEn = language === 'en';
 
-  const titleReveal = useScrollReveal({ threshold: 0.2 });
-  const leftReveal = useScrollReveal({ threshold: 0.1 });
-  const rightReveal = useScrollReveal({ threshold: 0.1 });
-
-  const contactLinks = [
-    {
-      icon: Mail,
-      label: t.contact.email,
-      value: 'lucas.kfrancopinheiro@gmail.com',
-      href: 'mailto:lucas.kfrancopinheiro@gmail.com',
-    },
-    {
-      icon: Linkedin,
-      label: t.contact.linkedin,
-      value: 'lucas-kayck-franco-pinheiro',
-      href: 'https://www.linkedin.com/in/lucas-kayck-franco-pinheiro-bb3971246/',
-    },
-    {
-      icon: Github,
-      label: t.contact.github,
-      value: 'github.com/LuksFP',
-      href: 'https://github.com/LuksFP',
-    },
-  ];
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const subject = encodeURIComponent(
-      language === 'pt' ? `Contato pelo portfólio — ${name}` : `Portfolio contact — ${name}`
-    );
-    const body = encodeURIComponent(
-      `${language === 'pt' ? 'Nome' : 'Name'}: ${name}\n${language === 'pt' ? 'Email' : 'Email'}: ${email}\n\n${message}`
-    );
-    window.location.href = `mailto:lucas.kfrancopinheiro@gmail.com?subject=${subject}&body=${body}`;
-  };
-
-  const labels = {
-    namePlaceholder: language === 'pt' ? 'Seu nome' : 'Your name',
-    emailPlaceholder: language === 'pt' ? 'Seu email' : 'Your email',
-    messagePlaceholder: language === 'pt' ? 'Sua mensagem...' : 'Your message...',
-    sendBtn: language === 'pt' ? 'Enviar mensagem' : 'Send message',
-    responseTime: language === 'pt' ? 'Respondo em até 24h' : 'I reply within 24h',
-    location: language === 'pt' ? 'Brasil, Remoto' : 'Brazil, Remote',
-    formTitle: language === 'pt' ? 'Envie uma mensagem' : 'Send a message',
-    contactTitle: language === 'pt' ? 'Outros contatos' : 'Other contacts',
-  };
+  const words = isEn
+    ? ["LET'S", 'BUILD', 'SOMETHING↗']
+    : ['VAMOS', 'CONSTRUIR', 'ALGO↗'];
 
   return (
     <>
-      <section id="contact" className="contact section">
+      <section id="contact" className="contact">
+        <div className="contact-orb contact-orb-1" aria-hidden="true" />
+        <div className="contact-orb contact-orb-2" aria-hidden="true" />
+
         <div className="container">
+
+          {/* Eyebrow */}
           <div
-            ref={titleReveal.ref}
-            className={`reveal ${titleReveal.isVisible ? 'visible' : ''}`}
+            ref={eyebrowReveal.ref}
+            className={`contact-eyebrow reveal ${eyebrowReveal.isVisible ? 'visible' : ''}`}
           >
-            <h2 className="section-title">{t.contact.title}</h2>
-            <p className="section-subtitle">{t.contact.subtitle}</p>
+            <span className="contact-eyebrow-dot" />
+            {isEn ? 'Available for new projects' : 'Disponível para novos projetos'}
           </div>
 
-          <div className="contact-grid">
-            {/* Left: Info + Links */}
-            <div
-              ref={leftReveal.ref}
-              className={`contact-info reveal-left ${leftReveal.isVisible ? 'visible' : ''}`}
-            >
-              <div className="contact-meta">
-                <div className="contact-meta-item">
-                  <div className="contact-meta-icon">
-                    <Clock size={16} />
-                  </div>
-                  <span>{labels.responseTime}</span>
-                </div>
-                <div className="contact-meta-item">
-                  <div className="contact-meta-icon">
-                    <MapPin size={16} />
-                  </div>
-                  <span>{labels.location}</span>
-                </div>
-              </div>
+          {/* Headline */}
+          <div
+            ref={headlineReveal.ref}
+            className={`contact-headline-wrap stagger-children ${headlineReveal.isVisible ? 'visible' : ''}`}
+          >
+            {words.map((word, i) => (
+              <h2
+                key={word}
+                className={`contact-headline${i === words.length - 1 ? ' contact-headline--accent' : ''}`}
+              >
+                {word}
+              </h2>
+            ))}
+          </div>
 
-              <p className="contact-info-label">{labels.contactTitle}</p>
-              <div className="contact-links">
-                {contactLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="contact-link"
-                  >
-                    <div className="contact-link-icon">
-                      <link.icon size={20} />
-                    </div>
-                    <div className="contact-link-content">
-                      <div className="contact-link-label">{link.label}</div>
-                      <div className="contact-link-value">{link.value}</div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Right: Form */}
-            <div
-              ref={rightReveal.ref}
-              className={`contact-form-wrapper reveal-right ${rightReveal.isVisible ? 'visible' : ''}`}
+          {/* Email CTA */}
+          <div
+            ref={emailReveal.ref}
+            className={`contact-email-wrap reveal ${emailReveal.isVisible ? 'visible' : ''}`}
+          >
+            <a
+              ref={emailMagnetic}
+              href="mailto:lucas.kfrancopinheiro@gmail.com"
+              className="contact-email-cta"
             >
-              <p className="contact-info-label">{labels.formTitle}</p>
-              <form className="contact-form" onSubmit={handleSubmit} noValidate>
-                <div className="contact-form-row">
-                  <div className="contact-field">
-                    <input
-                      type="text"
-                      placeholder={labels.namePlaceholder}
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                      className="contact-input"
-                    />
-                  </div>
-                  <div className="contact-field">
-                    <input
-                      type="email"
-                      placeholder={labels.emailPlaceholder}
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="contact-input"
-                    />
-                  </div>
-                </div>
-                <div className="contact-field">
-                  <textarea
-                    placeholder={labels.messagePlaceholder}
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    required
-                    rows={5}
-                    className="contact-input contact-textarea"
-                  />
-                </div>
-                <button type="submit" className="contact-submit">
-                  <Send size={17} />
-                  {labels.sendBtn}
-                </button>
-              </form>
+              <span className="contact-email-text">
+                lucas.kfrancopinheiro@gmail.com
+              </span>
+              <span className="contact-email-icon" aria-hidden="true">
+                <ArrowUpRight size={32} strokeWidth={1.5} />
+              </span>
+            </a>
+          </div>
+
+          {/* Divider */}
+          <div className="contact-line" aria-hidden="true" />
+
+          {/* Social row */}
+          <div
+            ref={socialReveal.ref}
+            className={`contact-social-row stagger-children ${socialReveal.isVisible ? 'visible' : ''}`}
+          >
+            <a href="https://github.com/LuksFP" target="_blank" rel="noopener noreferrer" className="contact-social-btn">
+              <Github size={18} />GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/lucas-kayck-franco-pinheiro-bb3971246/" target="_blank" rel="noopener noreferrer" className="contact-social-btn">
+              <Linkedin size={18} />LinkedIn
+            </a>
+            <a href="mailto:lucas.kfrancopinheiro@gmail.com" className="contact-social-btn">
+              <Mail size={18} />Email
+            </a>
+
+            <div className="contact-meta-strip">
+              <span><MapPin size={13} />{isEn ? 'Brazil, Remote' : 'Brasil, Remoto'}</span>
+              <span className="contact-meta-dot" />
+              <span><Clock size={13} />{isEn ? 'Replies within 24h' : 'Respondo em 24h'}</span>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Footer */}
       <footer className="footer">
-        <div className="footer-inner">
-          <p className="footer-text">
-            © {new Date().getFullYear()}{' '}
-            <span>Lucas Kayck Franco Pinheiro</span>.{' '}
-            {language === 'pt' ? 'Todos os direitos reservados.' : 'All rights reserved.'}
+        <div className="footer-name-wrap" aria-hidden="true">
+          <span className="footer-name">LUCAS KAYCK</span>
+          <span className="footer-name footer-name--ghost">LUCAS KAYCK</span>
+        </div>
+        <div className="footer-bottom">
+          <p className="footer-copy">
+            © {new Date().getFullYear()} Lucas Kayck.{' '}
+            <span>{isEn ? 'All rights reserved.' : 'Todos os direitos reservados.'}</span>
           </p>
           <div className="footer-links">
-            <a href="https://github.com/LuksFP" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-              <Github size={18} />
-            </a>
-            <a href="https://www.linkedin.com/in/lucas-kayck-franco-pinheiro-bb3971246/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <Linkedin size={18} />
-            </a>
-            <a href="mailto:lucas.kfrancopinheiro@gmail.com" aria-label="Email">
-              <Mail size={18} />
-            </a>
+            <a href="https://github.com/LuksFP" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><Github size={16} /></a>
+            <a href="https://www.linkedin.com/in/lucas-kayck-franco-pinheiro-bb3971246/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin size={16} /></a>
+            <a href="mailto:lucas.kfrancopinheiro@gmail.com" aria-label="Email"><Mail size={16} /></a>
           </div>
         </div>
       </footer>

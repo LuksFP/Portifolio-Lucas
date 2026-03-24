@@ -10,7 +10,7 @@ import '../styles/ScrollReveal.css';
 ────────────────────────────────────────── */
 const JOBS = [
   {
-    role: 'Engenheiro de Software · Arquiteto · QA · UI/UX Designer',
+    role: 'Engenheiro de Software',
     company: 'Powertec Tecnologia',
     period: { pt: 'Fev 2026 – Atual', en: 'Feb 2026 – Present' },
     current: true,
@@ -88,9 +88,12 @@ const Experience: React.FC = () => {
       <div className="container">
 
         {/* ── Section header ── */}
-        <div ref={titleReveal.ref} className={`reveal ${titleReveal.isVisible ? 'visible' : ''}`}>
-          <h2 className="section-title">{t.experience.title}</h2>
-          <p className="section-subtitle">{t.experience.subtitle}</p>
+        <div ref={titleReveal.ref} className={`section-header reveal ${titleReveal.isVisible ? 'visible' : ''}`}>
+          <span className="section-number" aria-hidden="true">02</span>
+          <div>
+            <h2 className="section-title">{t.experience.title}</h2>
+            <p className="section-subtitle">{t.experience.subtitle}</p>
+          </div>
         </div>
 
         <div className="experience-grid">
@@ -102,7 +105,7 @@ const Experience: React.FC = () => {
           >
             <h3 className="exp-group-title">{t.experience.workTitle}</h3>
 
-            <div className="timeline">
+            <div className={`timeline${leftReveal.isVisible ? ' line-drawn' : ''}`}>
               {JOBS.map((job, i) => (
                 <div key={i} className={`timeline-item ${job.current ? 'timeline-item--current' : ''}`}>
                   <div className="timeline-dot" />
