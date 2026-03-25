@@ -79,13 +79,20 @@ const Skills: React.FC = () => {
             const rgb = hexToRgb(skill.color);
             return (
               <div
-                key={skill.name} className="skill-card"
+                key={skill.name}
+                className="skill-card"
                 style={{
-                  '--skill-border': `rgba(${rgb}, 0.45)`,
-                  '--skill-glow':   `rgba(${rgb}, 0.15)`,
+                  '--skill-color':    skill.color,
+                  '--skill-border':   `rgba(${rgb}, 0.4)`,
+                  '--skill-glow':     `rgba(${rgb}, 0.18)`,
+                  '--skill-bg':       `rgba(${rgb}, 0.10)`,
+                  '--skill-bg-hover': `rgba(${rgb}, 0.20)`,
                 } as React.CSSProperties}
               >
-                <div className="skill-icon" style={{ color: skill.color }}>{skill.icon}</div>
+                <span className="skill-pct" aria-hidden="true">{skill.level}%</span>
+                <div className="skill-icon-wrap" style={{ color: skill.color }}>
+                  {skill.icon}
+                </div>
                 <span className="skill-name">{skill.name}</span>
                 <div className="skill-level" aria-label={`${skill.level}%`}>
                   <div
