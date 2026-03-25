@@ -171,15 +171,17 @@ const GitHubRepos: React.FC = () => {
         )}
 
         <div className="github-cta">
-          <a
-            href={`https://github.com/${GITHUB_USERNAME}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="github-cta-btn"
-          >
-            <Github size={18} />
-            {t.github.viewAll}
-          </a>
+          <span className="github-cta-ring">
+            <a
+              href={`https://github.com/${GITHUB_USERNAME}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="github-cta-btn"
+            >
+              <Github size={18} />
+              {t.github.viewAll}
+            </a>
+          </span>
         </div>
       </div>
     </section>

@@ -92,18 +92,62 @@
 /* CTA */
 .github-cta { display: flex; justify-content: center; margin-top: 2.75rem; }
 
+@keyframes ring-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Spinning gradient ring wrapper */
+.github-cta-ring {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+  background: var(--border-col); /* fallback static border */
+  transition: background 0.3s ease;
+}
+
+/* The rotating conic-gradient — larger so it sweeps cleanly */
+.github-cta-ring::before {
+  content: '';
+  position: absolute;
+  width: 300%; height: 300%;
+  top: -100%; left: -100%;
+  background: conic-gradient(
+    from 0deg,
+    #6366f1,
+    #8b5cf6,
+    #ec4899,
+    #6366f1
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  animation: ring-spin 2.5s linear infinite paused;
+}
+
+.github-cta-ring:hover {
+  background: transparent;
+}
+.github-cta-ring:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* Button sits on top, covers gradient except the 2px ring */
 .github-cta-btn {
-  position: relative; overflow: hidden;
+  position: relative; z-index: 1;
   display: inline-flex; align-items: center; gap: 0.625rem;
   padding: 0.9rem 2.25rem;
   background: var(--text); color: var(--bg);
   font-weight: 700; font-size: 0.9rem;
-  border-radius: var(--radius-full);
+  border-radius: 999px;
   border: none; outline: none;
+  text-decoration: none; cursor: pointer;
+  overflow: hidden; white-space: nowrap;
   transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease;
-  cursor: pointer; text-decoration: none;
 }
-/* shine sweep */
+
+/* shine sweep inside button */
 .github-cta-btn::before {
   content: '';
   position: absolute; inset: 0;
@@ -115,34 +159,19 @@
   );
   transform: translateX(-130%);
   transition: transform 0.5s ease;
+  pointer-events: none;
 }
-.github-cta-btn:hover::before { transform: translateX(130%); }
+.github-cta-ring:hover .github-cta-btn::before { transform: translateX(130%); }
 
-/* outer glow ring */
-.github-cta-btn::after {
-  content: '';
-  position: absolute; inset: -2px;
-  border-radius: inherit;
-  background: linear-gradient(
-    135deg,
-    rgba(var(--accent-rgb), 0.6),
-    rgba(var(--accent-rgb), 0.1) 50%,
-    rgba(var(--accent-rgb), 0.6)
-  );
-  opacity: 0;
-  z-index: -1;
-  transition: opacity 0.3s ease;
+.github-cta-ring:hover .github-cta-btn {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(99,102,241,0.25), 0 4px 12px rgba(0,0,0,0.15);
 }
-.github-cta-btn:hover::after { opacity: 1; }
 
-.github-cta-btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(var(--accent-rgb), 0.2), var(--shadow-md);
-}
 .github-cta-btn svg {
   transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
 }
-.github-cta-btn:hover svg { transform: rotate(-10deg) scale(1.15); }
+.github-cta-ring:hover .github-cta-btn svg { transform: rotate(-12deg) scale(1.15); }
 
 @media (max-width: 768px) {
   .github-grid { grid-template-columns: 1fr; }

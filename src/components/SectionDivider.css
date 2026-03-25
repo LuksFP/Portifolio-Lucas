@@ -1,72 +1,63 @@
+/* ── Section Divider — dual scrolling rows ── */
 .sdiv {
   overflow: hidden;
   border-top: 1px solid var(--border-col);
   border-bottom: 1px solid var(--border-col);
-  padding: 0.9rem 0;
   background: var(--surface);
-  position: relative;
+  display: flex; flex-direction: column; gap: 0;
+  padding: 0;
   /* fade edges */
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 8%,
-    black 92%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 8%,
-    black 92%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+  mask-image:         linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
 }
 
 .sdiv--accent {
-  background: linear-gradient(
-    135deg,
-    var(--accent) 0%,
-    color-mix(in srgb, var(--accent) 75%, #7c3aed) 100%
-  );
+  background: linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%);
   border-color: transparent;
-  padding: 1rem 0;
 }
 
+/* Each row */
 .sdiv-track {
   display: flex;
   white-space: nowrap;
   width: max-content;
+  padding: 0.65rem 0;
   font-family: var(--font-heading);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted-text);
-  animation: marquee 28s linear infinite;
+  animation: marquee 30s linear infinite;
   will-change: transform;
 }
+.sdiv-track-2 {
+  border-top: 1px solid rgba(var(--border-rgb, 255,255,255), 0.06);
+  animation-duration: 24s; /* slightly different speed */
+}
+
+/* Pause on hover */
 .sdiv:hover .sdiv-track { animation-play-state: paused; }
 
-.sdiv-track span { display: inline-flex; align-items: center; gap: 0; }
-
-/* Highlight the dot separators */
-.sdiv-track { }
+.sdiv-track--reverse { animation-direction: reverse; }
 
 .sdiv--accent .sdiv-track {
-  color: rgba(255,255,255,0.92);
-  font-size: 0.82rem;
-  letter-spacing: 0.28em;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.68rem;
+  letter-spacing: 0.25em;
+}
+.sdiv--accent .sdiv-track-2 {
+  border-top-color: rgba(255,255,255,0.1);
 }
 
-.sdiv-track--reverse {
-  animation-direction: reverse;
-}
-
+/* Items and dots */
 .sdiv-group { display: inline-flex; align-items: center; }
-.sdiv-item  { padding: 0 0.6rem; }
-.sdiv-dot   {
+.sdiv-item  { padding: 0 0.75rem; }
+
+.sdiv-dot {
+  font-size: 0.45em;
   color: var(--accent);
-  opacity: 0.6;
-  font-size: 1.1em;
+  opacity: 0.5;
+  vertical-align: middle;
 }
-.sdiv-dot--accent { color: rgba(255,255,255,0.5); }
+.sdiv-dot--accent { color: rgba(255,255,255,0.45); }

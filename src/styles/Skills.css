@@ -161,54 +161,57 @@
   background: linear-gradient(to left, transparent, var(--border-col));
 }
 .skills-tools-list {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.625rem;
 }
 
-/* staggered reveal for badges */
-.reveal.visible .skills-tool-badge {
-  opacity: 1; transform: translateY(0);
-}
+/* ── Keycap badges ── */
 .skills-tool-badge {
   display: inline-flex; align-items: center; gap: 0.45rem;
-  padding: 0.45rem 1.1rem;
-  background: var(--card); border: 1px solid var(--border-col);
-  border-radius: var(--radius-full);
-  font-size: 0.78rem; font-weight: 500; color: var(--muted-text);
-  position: relative; overflow: hidden;
-  opacity: 0; transform: translateY(10px);
+  padding: 0.4rem 0.95rem 0.5rem;
+  background: linear-gradient(to bottom, var(--surface-2) 0%, var(--card) 100%);
+  border: 1px solid var(--border-col);
+  border-bottom: 3px solid rgba(0,0,0,0.35);
+  border-radius: 7px;
+  font-size: 0.73rem; font-weight: 600; letter-spacing: 0.025em;
+  color: var(--text);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.07),
+    0 2px 4px rgba(0,0,0,0.18);
+  cursor: default; position: relative; overflow: hidden;
+  opacity: 0;
   transition:
-    border-color 0.22s ease,
-    color        0.22s ease,
-    transform    0.22s ease,
-    background   0.22s ease,
-    box-shadow   0.22s ease,
-    opacity      0.35s ease var(--badge-delay, 0s);
+    opacity          0.4s ease var(--badge-delay, 0s),
+    transform        0.08s ease,
+    border-bottom-width 0.08s ease,
+    border-color     0.12s ease,
+    color            0.12s ease,
+    background       0.12s ease,
+    box-shadow       0.08s ease;
 }
-/* shine sweep */
-.skills-tool-badge::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(
-    105deg,
-    transparent 35%,
-    rgba(255,255,255,0.08) 50%,
-    transparent 65%
-  );
-  transform: translateX(-120%);
-  transition: transform 0.45s ease;
-  pointer-events: none;
-}
-.skills-tool-badge:hover::after { transform: translateX(120%); }
+
+.reveal.visible .skills-tool-badge { opacity: 1; }
+
 .skills-tool-badge:hover {
-  border-color: var(--accent);
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+  border-color: rgba(var(--accent-rgb), 0.55);
+  border-bottom-color: rgba(var(--accent-rgb), 0.25);
   color: var(--accent);
-  background: var(--accent-dim);
-  transform: translateY(-3px);
-  box-shadow: 0 4px 16px rgba(var(--accent-rgb), 0.15);
+  background: linear-gradient(to bottom, var(--accent-dim) 0%, var(--card) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    0 0 10px rgba(var(--accent-rgb), 0.12);
 }
-.skills-tool-icon { display: flex; align-items: center; opacity: 0.75; transition: opacity 0.2s ease, transform 0.2s ease; }
-.skills-tool-icon svg { width: 13px; height: 13px; }
-.skills-tool-badge:hover .skills-tool-icon { opacity: 1; transform: scale(1.15); }
+
+.skills-tool-badge:active {
+  transform: translateY(3px);
+  border-bottom-width: 0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+.skills-tool-icon { display: flex; align-items: center; opacity: 0.65; transition: opacity 0.12s ease; }
+.skills-tool-icon svg { width: 12px; height: 12px; }
+.skills-tool-badge:hover .skills-tool-icon { opacity: 1; }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
