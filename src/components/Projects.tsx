@@ -168,10 +168,13 @@ const Projects: React.FC = () => {
       <div className="container">
         <div
           ref={titleReveal.ref}
-          className={`reveal ${titleReveal.isVisible ? 'visible' : ''}`}
+          className={`section-header reveal ${titleReveal.isVisible ? 'visible' : ''}`}
         >
-          <h2 className="section-title">{t.projects.title}</h2>
-          <p className="section-subtitle">{t.projects.subtitle}</p>
+          <span className="section-number" aria-hidden="true">03</span>
+          <div>
+            <h2 className="section-title">{t.projects.title}</h2>
+            <p className="section-subtitle">{t.projects.subtitle}</p>
+          </div>
         </div>
 
         {loading ? (

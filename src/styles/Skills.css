@@ -58,7 +58,35 @@
 .stagger-children.visible .skill-card:nth-child(10) .skill-level-bar { transition-delay: 0.50s; }
 .stagger-children.visible .skill-card:nth-child(11) .skill-level-bar { transition-delay: 0.55s; }
 .stagger-children.visible .skill-card:nth-child(12) .skill-level-bar { transition-delay: 0.60s; }
+.stagger-children.visible .skill-card:nth-child(13) .skill-level-bar { transition-delay: 0.65s; }
+.stagger-children.visible .skill-card:nth-child(14) .skill-level-bar { transition-delay: 0.70s; }
+.stagger-children.visible .skill-card:nth-child(15) .skill-level-bar { transition-delay: 0.75s; }
+.stagger-children.visible .skill-card:nth-child(16) .skill-level-bar { transition-delay: 0.80s; }
 .stagger-children.visible .skill-level-bar { width: var(--level); }
+
+/* Tools & Others */
+.skills-tools {
+  margin-top: 3rem; text-align: center;
+}
+.skills-tools-label {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted-text);
+  margin-bottom: 1rem;
+}
+.skills-tools-list {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
+}
+.skills-tool-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.35rem 0.875rem;
+  background: var(--card); border: 1px solid var(--border-col);
+  border-radius: var(--radius-full);
+  font-size: 0.78rem; font-weight: 500; color: var(--muted-text);
+  transition: border-color var(--t-fast), color var(--t-fast), transform var(--t-fast);
+}
+.skills-tool-badge:hover { border-color: var(--accent); color: var(--text); transform: translateY(-2px); }
+.skills-tool-icon { display: flex; align-items: center; opacity: 0.7; }
+.skills-tool-icon svg { width: 13px; height: 13px; }
 
 @media (max-width: 768px) {
   .skills-grid { grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }

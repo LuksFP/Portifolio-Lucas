@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
       <div className="navbar-container">
         <a href="#home" className="navbar-logo" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
           <span className="logo-bracket">{'<'}</span>
-          <span className="logo-name">Dev</span>
+          <span className="logo-name">LK</span>
           <span className="logo-slash">/</span>
           <span className="logo-bracket">{'>'}</span>
         </a>
@@ -115,6 +115,12 @@ const Navbar: React.FC = () => {
             aria-label="Toggle theme"
           >
             {theme === 'light' ? <Moon /> : <Sun />}
+          </button>
+          <button
+            className="navbar-hire-btn"
+            onClick={() => scrollToSection('contact')}
+          >
+            {language === 'pt' ? 'Contratar' : 'Hire Me'}
           </button>
         </div>
 
@@ -163,6 +169,12 @@ const Navbar: React.FC = () => {
           </button>
           <button className="theme-toggle" onClick={toggleTheme}>
             {theme === 'light' ? <Moon /> : <Sun />}
+          </button>
+          <button
+            className="navbar-hire-btn"
+            onClick={() => scrollToSection('contact')}
+          >
+            {language === 'pt' ? 'Contratar' : 'Hire Me'}
           </button>
         </div>
       </div>

@@ -247,7 +247,9 @@ const Hero: React.FC = () => {
             {language === 'pt' ? 'Disponível para trabalho' : 'Available for work'}
           </div>
 
-          <h1 className="hero-name" data-text={displayName}>
+          <p className="hero-greeting">{t.hero.greeting}</p>
+
+          <h1 className={`hero-name${displayName === NAME ? ' hero-name--revealed' : ''}`} data-text={displayName}>
             {displayName}
           </h1>
 

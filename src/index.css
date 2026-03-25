@@ -196,6 +196,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   letter-spacing: 0.1em;
   padding-top: 0.6rem;
   flex-shrink: 0;
+  opacity: 0.6;
 }
 .section-header .section-title     { text-align: left; }
 .section-header .section-title::after { margin-left: 0; }

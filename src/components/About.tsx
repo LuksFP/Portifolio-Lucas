@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { Download } from 'lucide-react';
 import '../styles/About.css';
 import '../styles/ScrollReveal.css';
 
@@ -38,6 +39,7 @@ const About: React.FC = () => {
             <div ref={leftReveal.ref} className={`about-profile-col reveal-left ${leftReveal.isVisible ? 'visible' : ''}`}>
               <div className="about-profile-card">
                 <div className="about-avatar-wrapper">
+                  <div className="about-avatar-ring" aria-hidden="true" />
                   <div className="about-avatar" aria-hidden="true">LK</div>
                 </div>
                 <p className="about-profile-name">Lucas Kayck Franco Pinheiro</p>
@@ -56,6 +58,15 @@ const About: React.FC = () => {
                     </div>
                   ))}
                 </div>
+                <a
+                  href="/cv-lucas-kayck.pdf"
+                  download
+                  className="about-cv-btn"
+                  aria-label={language === 'pt' ? 'Baixar Currículo' : 'Download Resume'}
+                >
+                  <Download size={15} />
+                  {language === 'pt' ? 'Baixar Currículo' : 'Download Resume'}
+                </a>
               </div>
             </div>
 
