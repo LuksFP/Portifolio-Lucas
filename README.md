@@ -1,4 +1,4 @@
-# 🚀 Lucas Kayck Franco Pinheiro - Portfólio Profissional
+# Lucas Kayck — Portfólio
 
 [![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -6,223 +6,112 @@
 [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-Um portfólio moderno, responsivo e performático construído com as melhores práticas de desenvolvimento front-end. Apresenta projetos, habilidades técnicas e informações de contato com uma interface elegante e animações fluidas.
-
-## 📸 Preview
-
-![Portfolio Preview](https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&h=630&fit=crop)
+Portfólio pessoal construído com React 18, TypeScript e Supabase. Apresenta projetos, stack técnica e contato — com painel administrativo para gerenciar o conteúdo sem tocar no código.
 
 ---
 
-## ✨ Funcionalidades
+## Stack
 
-### 🎨 Design & UX
-- **Design Responsivo**: Interface adaptável para desktop, tablet e mobile
-- **Tema Claro/Escuro**: Alternância suave entre temas com persistência local
-- **Animações Fluidas**: Scroll reveal, parallax effects e micro-interações
-- **Interface Moderna**: Design system consistente com Shadcn/UI
+**Frontend:** React 18 · TypeScript · Vite · Tailwind CSS · Shadcn/UI · React Query · React Hook Form · Zod
 
-### 📂 Seção de Projetos
-- **CRUD Completo**: Gerenciamento dinâmico de projetos via painel admin
-- **Busca Inteligente**: Pesquisa por título ou descrição em tempo real
-- **Filtros por Tecnologia**: Filtragem por stack tecnológico
-- **Ordenação Flexível**: Por data (mais recentes/antigos) ou alfabética
-- **Paginação**: Navegação eficiente entre projetos
-- **Skeleton Loading**: Feedback visual durante carregamento
-- **Empty State**: Estado vazio amigável com CTA para admin
+**Backend:** Supabase (PostgreSQL · Row Level Security · Edge Functions · Auth)
 
-### 🔐 Autenticação & Admin
-- **Login Seguro**: Autenticação via Lovable Cloud
-- **Painel Administrativo**: Interface protegida para gestão de conteúdo
-- **Controle de Acesso**: RBAC (Role-Based Access Control)
-- **Políticas RLS**: Row Level Security no banco de dados
-
-### 🌍 Internacionalização
-- **Português (PT-BR)**: Idioma padrão
-- **Inglês (EN)**: Suporte completo
-- **Troca Dinâmica**: Alternância instantânea sem reload
-
-### 📧 Contato & Social
-- **Links Sociais**: GitHub, LinkedIn, Email
-- **Download CV**: Acesso direto ao currículo
-- **Footer Informativo**: Copyright e créditos
+**Deploy:** Vercel
 
 ---
 
-## 🛠️ Stack Tecnológica
+## Funcionalidades
 
-### Frontend
-| Tecnologia | Versão | Descrição |
-|------------|--------|-----------|
-| React | 18.3.1 | Biblioteca UI reativa |
-| TypeScript | 5.0 | Tipagem estática |
-| Vite | 5.0 | Build tool ultrarrápida |
-| Tailwind CSS | 3.4 | Utility-first CSS |
-| Shadcn/UI | Latest | Componentes acessíveis |
+**Projetos**
+Busca em tempo real por título ou descrição, filtro por tecnologia, ordenação por data ou alfabética e paginação. Se o banco estiver inacessível, exibe projetos estáticos como fallback.
 
-### Backend (Lovable Cloud)
-| Tecnologia | Descrição |
-|------------|-----------|
-| PostgreSQL | Banco de dados relacional |
-| Row Level Security | Políticas de segurança |
-| Edge Functions | Lógica serverless |
-| Authentication | Sistema de autenticação |
+**Painel Admin**
+CRUD completo de projetos protegido por autenticação. Controle de acesso via RBAC com `user_roles` e políticas RLS no banco — só usuários com role `admin` chegam nas operações de escrita.
 
-### Bibliotecas Principais
-| Pacote | Uso |
-|--------|-----|
-| React Router | Roteamento SPA |
-| React Query | Cache e fetching |
-| Lucide React | Ícones SVG |
-| Sonner | Notificações toast |
-| Zod | Validação de schemas |
-| React Hook Form | Gerenciamento de formulários |
+**UX**
+Tema claro/escuro com persistência local, animações de scroll reveal, cursor customizado com efeito magnético nos botões, skeleton loading e internacionalização PT-BR/EN com troca instantânea.
 
 ---
 
-## 📁 Estrutura do Projeto
+## Estrutura
 
 ```
 src/
-├── components/           # Componentes React
-│   ├── ui/              # Componentes Shadcn/UI
-│   ├── About.tsx        # Seção Sobre
-│   ├── Contact.tsx      # Seção Contato
-│   ├── Hero.tsx         # Seção Hero
-│   ├── Navbar.tsx       # Navegação
-│   ├── Projects.tsx     # Seção Projetos
-│   ├── Skills.tsx       # Seção Habilidades
-│   └── ...
-├── contexts/            # Context Providers
-│   ├── LanguageContext.tsx
-│   └── ThemeContext.tsx
-├── hooks/               # Custom Hooks
-│   ├── useAdmin.ts
-│   ├── useAuth.ts
-│   ├── useProjects.ts
-│   ├── useScrollReveal.ts
-│   └── ...
-├── integrations/        # Integrações externas
-│   └── supabase/
-├── pages/               # Páginas da aplicação
-│   ├── Admin.tsx
-│   ├── Auth.tsx
-│   ├── Index.tsx
-│   └── NotFound.tsx
-├── styles/              # Arquivos CSS
-│   ├── About.css
-│   ├── Contact.css
-│   ├── Hero.css
-│   ├── Navbar.css
-│   ├── Projects.css
-│   └── ...
-├── lib/                 # Utilitários
-│   └── utils.ts
-├── App.tsx              # Componente raiz
-├── main.tsx             # Entry point
-└── index.css            # Estilos globais
+├── components/       # Componentes de seção (Hero, About, Projects, Skills, Contact...)
+│   └── ui/           # Componentes Shadcn/UI
+├── contexts/         # ThemeContext, LanguageContext
+├── hooks/            # useProjects, useAdmin, useAuth, useScrollReveal...
+├── integrations/
+│   └── supabase/     # Client, types gerados
+├── pages/            # Index, Admin, Auth, NotFound
+├── styles/           # CSS por seção
+└── lib/              # utils
 ```
 
 ---
 
-## 🚀 Como Executar
+## Como rodar
 
-### Pré-requisitos
-- Node.js 18+
-- npm ou bun
-
-### Instalação
+Pré-requisitos: Node.js 18+ e npm ou bun.
 
 ```bash
-# Clone o repositório
 git clone https://github.com/lucaskayck/portfolio.git
-
-# Entre no diretório
 cd portfolio
-
-# Instale as dependências
-npm install
-# ou
-bun install
-
-# Execute em desenvolvimento
-npm run dev
-# ou
-bun dev
+npm install   # ou: bun install
+npm run dev   # ou: bun dev
 ```
 
-### Build para Produção
+Para o build de produção:
 
 ```bash
-# Gerar build otimizado
 npm run build
-
-# Preview do build
 npm run preview
 ```
 
 ---
 
-## 📊 Estatísticas
+## Variáveis de ambiente
 
-| Métrica | Valor |
-|---------|-------|
-| Anos de Experiência | 3+ |
-| Projetos Concluídos | 10+ |
-| Clientes Satisfeitos | 10+ |
-| Tecnologias Dominadas | 10+ |
+Crie um `.env` na raiz com as credenciais do Supabase:
 
----
-
-## 🎯 Roadmap
-
-- [ ] **Blog Integrado**: Sistema de posts com markdown
-- [ ] **Comentários**: Sistema de feedback em projetos
-- [ ] **Analytics Dashboard**: Métricas de visitantes
-- [ ] **GitHub API**: Sync automático de repositórios
-- [ ] **Modo Apresentação**: Slideshow de projetos
-- [ ] **PWA**: Progressive Web App support
-- [ ] **i18n Expandido**: Suporte a mais idiomas
+```
+VITE_SUPABASE_URL=sua_url
+VITE_SUPABASE_ANON_KEY=sua_chave
+```
 
 ---
 
-## 🤝 Contribuindo
+## Roadmap
 
-Contribuições são bem-vindas! Por favor, siga estes passos:
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add: AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-### Padrões de Commit
-
-- `Add:` Nova funcionalidade
-- `Fix:` Correção de bug
-- `Update:` Atualização de código existente
-- `Refactor:` Refatoração sem mudança de funcionalidade
-- `Docs:` Alterações na documentação
-- `Style:` Alterações de estilo/formatação
+- [ ] Blog com MDX
+- [ ] Dashboard de analytics de visitantes
+- [ ] Sync automático com a API do GitHub
+- [ ] Modo PWA
+- [ ] Suporte a mais idiomas
 
 ---
 
-## 📄 Licença
+## Padrões de commit
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+| Prefixo | Uso |
+|---------|-----|
+| `Add:` | Nova funcionalidade |
+| `Fix:` | Correção de bug |
+| `Update:` | Atualização de código existente |
+| `Refactor:` | Refatoração sem mudança de comportamento |
+| `Docs:` | Documentação |
+| `Style:` | Formatação e estilo |
 
 ---
 
-## 📧 Contato
+## Licença
+
+MIT — veja [LICENSE](LICENSE).
+
+---
 
 **Lucas Kayck Franco Pinheiro**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/lucaskayck)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/lucaskayck)
 [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:lucas.kfrancopinheiro@gmail.com)
-
----
-
-<p align="center">
-  <a href="#-lucas-kayck-franco-pinheiro---portfólio-profissional">⬆️ Voltar ao topo</a>
-</p>
