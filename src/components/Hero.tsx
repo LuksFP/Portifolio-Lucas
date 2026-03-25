@@ -247,7 +247,9 @@ const Hero: React.FC = () => {
             {language === 'pt' ? 'Disponível para trabalho' : 'Available for work'}
           </div>
 
-          <h1 className="hero-name" data-text={displayName}>
+          <p className="hero-greeting">{t.hero.greeting}</p>
+
+          <h1 className={`hero-name${displayName === NAME ? ' hero-name--revealed' : ''}`} data-text={displayName}>
             {displayName}
           </h1>
 
@@ -285,12 +287,12 @@ const Hero: React.FC = () => {
             </div>
             <div className="hero-stat-divider" />
             <div className="hero-stat">
-              <span className="hero-stat-number">12+</span>
+              <span className="hero-stat-number">15+</span>
               <span className="hero-stat-label">{language === 'pt' ? 'Projetos' : 'Projects'}</span>
             </div>
             <div className="hero-stat-divider" />
             <div className="hero-stat">
-              <span className="hero-stat-number">15+</span>
+              <span className="hero-stat-number">30+</span>
               <span className="hero-stat-label">{language === 'pt' ? 'Tecnologias' : 'Tech'}</span>
             </div>
           </div>

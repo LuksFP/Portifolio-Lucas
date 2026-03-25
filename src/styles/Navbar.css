@@ -77,6 +77,21 @@
 .theme-toggle svg { width: 16px; height: 16px; transition: transform 0.4s var(--ease-out); }
 .theme-toggle:hover svg { transform: rotate(20deg); }
 
+.navbar-hire-btn {
+  padding: 0.4rem 1rem;
+  background: var(--accent);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem; font-weight: 600;
+  color: #fff; letter-spacing: 0.01em;
+  transition: background var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
+  white-space: nowrap;
+}
+.navbar-hire-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.4);
+}
+
 .mobile-menu-btn {
   display: none; flex-direction: column; justify-content: center;
   gap: 5px; width: 36px; height: 36px; padding: 6px;

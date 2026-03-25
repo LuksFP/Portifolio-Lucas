@@ -95,9 +95,9 @@ const translations: Record<Language, Translations> = {
     about: {
       title: 'Sobre Mim',
       subtitle: 'Conheça um pouco mais sobre minha jornada e paixão pelo desenvolvimento',
-      p1: 'Sou Engenheiro de Software com 21 anos, baseado em Guarujá, SP. Atuo como Fullstack Developer, Arquiteto de Sistemas, QA e UI/UX Designer na Powertec Tecnologia, entregando sistemas em produção real para academias e clientes governamentais.',
-      p2: 'Tenho sólida experiência em React, TypeScript, Node.js, PostgreSQL e Clean Architecture. Construo desde interfaces responsivas até APIs REST escaláveis, passando por pipelines CI/CD, containerização com Docker e deploys em Vercel, Render e Railway.',
-      p3: 'Sou movido por qualidade de código, boas práticas e impacto real. Cada projeto é uma oportunidade de unir arquitetura sólida, experiência de usuário excepcional e entrega contínua.',
+      p1: 'Sou Engenheiro de Software com 21 anos, baseado em Guarujá, SP. Atuo como Fullstack Developer, Arquiteto de Sistemas, QA Engineer e UI/UX Designer na Powertec Tecnologia — entregando sistemas em produção real para academias e instituições governamentais municipais.',
+      p2: 'Tenho domínio em React, Next.js, TypeScript, Node.js, Express e PostgreSQL com Prisma ORM. Construo desde interfaces responsivas com Tailwind e Shadcn/UI até APIs REST e GraphQL escaláveis, com autenticação JWT/RBAC, CI/CD via GitHub Actions, Docker e deploys em Vercel, Render e Railway.',
+      p3: 'Sou movido por qualidade de código, Clean Architecture e SOLID, impacto real e entrega contínua. Cada projeto é uma oportunidade de combinar arquitetura sólida, experiência de usuário excepcional e soluções que funcionam na prática — não só no papel.',
     },
     projects: {
       title: 'Meus Projetos',
@@ -168,9 +168,9 @@ const translations: Record<Language, Translations> = {
     about: {
       title: 'About Me',
       subtitle: 'Learn a little more about my journey and passion for development',
-      p1: "I'm a 21-year-old Software Engineer based in Guarujá, Brazil. I work as Fullstack Developer, Software Architect, QA and UI/UX Designer at Powertec Tecnologia, delivering production systems for gyms and government clients.",
-      p2: 'I have strong experience with React, TypeScript, Node.js, PostgreSQL and Clean Architecture — from responsive interfaces to scalable REST APIs, CI/CD pipelines, Docker containerization and cloud deploys.',
-      p3: "I'm driven by code quality, best practices and real impact. Every project is a chance to combine solid architecture, exceptional user experience and continuous delivery.",
+      p1: "I'm a 21-year-old Software Engineer based in Guarujá, Brazil. I work as Fullstack Developer, Software Architect, QA Engineer and UI/UX Designer at Powertec Tecnologia — delivering real production systems for gyms and municipal government institutions.",
+      p2: 'I have strong expertise in React, Next.js, TypeScript, Node.js, Express and PostgreSQL with Prisma ORM. I build everything from responsive interfaces with Tailwind and Shadcn/UI to scalable REST and GraphQL APIs, with JWT/RBAC auth, CI/CD via GitHub Actions, Docker, and cloud deploys on Vercel, Render and Railway.',
+      p3: "I'm driven by code quality, Clean Architecture, SOLID principles and real-world impact. Every project is a chance to combine solid architecture, exceptional user experience and solutions that actually work in production — not just on paper.",
     },
     projects: {
       title: 'My Projects',
