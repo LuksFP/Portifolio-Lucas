@@ -112,7 +112,11 @@ const Skills: React.FC = () => {
           </p>
           <div className="skills-tools-list">
             {tools.map((tool, i) => (
-              <span key={i} className="skills-tool-badge">
+              <span
+                key={i}
+                className="skills-tool-badge"
+                style={{ '--badge-delay': `${i * 0.04}s` } as React.CSSProperties}
+              >
                 {tool.icon && <span className="skills-tool-icon">{tool.icon}</span>}
                 {tool.label}
               </span>

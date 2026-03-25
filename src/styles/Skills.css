@@ -163,22 +163,52 @@
 .skills-tools-list {
   display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
 }
+
+/* staggered reveal for badges */
+.reveal.visible .skills-tool-badge {
+  opacity: 1; transform: translateY(0);
+}
 .skills-tool-badge {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.4rem 1rem;
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.45rem 1.1rem;
   background: var(--card); border: 1px solid var(--border-col);
   border-radius: var(--radius-full);
   font-size: 0.78rem; font-weight: 500; color: var(--muted-text);
-  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  position: relative; overflow: hidden;
+  opacity: 0; transform: translateY(10px);
+  transition:
+    border-color 0.22s ease,
+    color        0.22s ease,
+    transform    0.22s ease,
+    background   0.22s ease,
+    box-shadow   0.22s ease,
+    opacity      0.35s ease var(--badge-delay, 0s);
 }
+/* shine sweep */
+.skills-tool-badge::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255,255,255,0.08) 50%,
+    transparent 65%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.45s ease;
+  pointer-events: none;
+}
+.skills-tool-badge:hover::after { transform: translateX(120%); }
 .skills-tool-badge:hover {
   border-color: var(--accent);
   color: var(--accent);
   background: var(--accent-dim);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 16px rgba(var(--accent-rgb), 0.15);
 }
-.skills-tool-icon { display: flex; align-items: center; opacity: 0.75; }
+.skills-tool-icon { display: flex; align-items: center; opacity: 0.75; transition: opacity 0.2s ease, transform 0.2s ease; }
 .skills-tool-icon svg { width: 13px; height: 13px; }
+.skills-tool-badge:hover .skills-tool-icon { opacity: 1; transform: scale(1.15); }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
