@@ -287,12 +287,12 @@ const Hero: React.FC = () => {
             </div>
             <div className="hero-stat-divider" />
             <div className="hero-stat">
-              <span className="hero-stat-number">12+</span>
+              <span className="hero-stat-number">15+</span>
               <span className="hero-stat-label">{language === 'pt' ? 'Projetos' : 'Projects'}</span>
             </div>
             <div className="hero-stat-divider" />
             <div className="hero-stat">
-              <span className="hero-stat-number">15+</span>
+              <span className="hero-stat-number">30+</span>
               <span className="hero-stat-label">{language === 'pt' ? 'Tecnologias' : 'Tech'}</span>
             </div>
           </div>

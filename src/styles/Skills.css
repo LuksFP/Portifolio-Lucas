@@ -62,6 +62,10 @@
 .stagger-children.visible .skill-card:nth-child(14) .skill-level-bar { transition-delay: 0.70s; }
 .stagger-children.visible .skill-card:nth-child(15) .skill-level-bar { transition-delay: 0.75s; }
 .stagger-children.visible .skill-card:nth-child(16) .skill-level-bar { transition-delay: 0.80s; }
+.stagger-children.visible .skill-card:nth-child(17) .skill-level-bar { transition-delay: 0.85s; }
+.stagger-children.visible .skill-card:nth-child(18) .skill-level-bar { transition-delay: 0.90s; }
+.stagger-children.visible .skill-card:nth-child(19) .skill-level-bar { transition-delay: 0.95s; }
+.stagger-children.visible .skill-card:nth-child(20) .skill-level-bar { transition-delay: 1.00s; }
 .stagger-children.visible .skill-level-bar { width: var(--level); }
 
 /* Tools & Others */
