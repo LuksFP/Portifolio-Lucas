@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import { Download } from 'lucide-react';
 import '../styles/About.css';
 import '../styles/ScrollReveal.css';
 
@@ -84,6 +83,7 @@ const About: React.FC = () => {
                     </div>
                   ))}
                 </div>
+                {/* Botão de CV escondido até ter o PDF em /public/cv-lucas-kayck.pdf
                 <a
                   href="/cv-lucas-kayck.pdf"
                   download
@@ -93,6 +93,7 @@ const About: React.FC = () => {
                   <Download size={15} />
                   {language === 'pt' ? 'Baixar Currículo' : 'Download Resume'}
                 </a>
+                */}
               </div>
             </div>
 
