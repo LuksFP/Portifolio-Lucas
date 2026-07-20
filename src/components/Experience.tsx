@@ -10,10 +10,22 @@ import '../styles/ScrollReveal.css';
 ────────────────────────────────────────── */
 const JOBS = [
   {
+    role: 'Fundador & Desenvolvedor Full-Stack',
+    company: 'Nexio Softwares e Sistemas',
+    period: { pt: 'Mar 2026 – Atual', en: 'Mar 2026 – Present' },
+    current: true,
+    items: [
+      { pt: 'Fundação e operação de uma software house: ERPs, CRMs, PDVs e sistemas sob medida entregues em produção para clientes da Baixada Santista.', en: 'Founded and run a software house: bespoke ERPs, CRMs, POS and web systems shipped to production for clients across the Baixada Santista region.' },
+      { pt: 'Arquitetura fullstack com Next.js, React, Go e Supabase/PostgreSQL, do design em Figma ao deploy na Vercel.', en: 'Fullstack architecture with Next.js, React, Go and Supabase/PostgreSQL, from Figma design to Vercel deploy.' },
+      { pt: 'Agentes de IA para prospecção e atendimento (Python/FastAPI, Groq/Llama) e geração automatizada de vídeos com IA.', en: 'AI agents for lead prospecting and support (Python/FastAPI, Groq/Llama) and automated AI video generation.' },
+      { pt: 'Ciclo comercial completo: descoberta e proposta (SPIN Selling), desenvolvimento, deploy e suporte contínuo ao cliente.', en: 'End-to-end client cycle: discovery and proposal (SPIN Selling), development, deployment and ongoing support.' },
+    ],
+  },
+  {
     role: 'Engenheiro de Software',
     company: 'Powertec Tecnologia',
-    period: { pt: 'Fev 2026 – Atual', en: 'Feb 2026 – Present' },
-    current: true,
+    period: { pt: 'Fev 2026 – Mar 2026', en: 'Feb 2026 – Mar 2026' },
+    current: false,
     items: [
       { pt: 'Arquitetura e desenvolvimento de sistemas web fullstack e APIs REST escaláveis em produção.', en: 'Architecture and development of fullstack web systems and scalable REST APIs in production.' },
       { pt: 'Definição de padrões arquiteturais com Clean Architecture e SOLID; revisão técnica de código.', en: 'Defining architectural patterns with Clean Architecture and SOLID; technical code review.' },

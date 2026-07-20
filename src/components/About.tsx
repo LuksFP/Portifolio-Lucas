@@ -1,9 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { Download } from 'lucide-react';
 import '../styles/About.css';
 import '../styles/ScrollReveal.css';
+
+/* Conta de 0 até o número quando entra na tela (ex: "20+" sobe até 20 e mantém o "+") */
+const CountUp: React.FC<{ value: string; play: boolean }> = ({ value, play }) => {
+  const target = parseInt(value, 10) || 0;
+  const suffix = value.replace(/[0-9]/g, '');
+  const [n, setN] = useState(0);
+  const done = useRef(false);
+
+  useEffect(() => {
+    if (!play || done.current) return;
+    done.current = true;
+    const duration = 1100;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (t: number) => {
+      const p = Math.min((t - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setN(Math.round(eased * target));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [play, target]);
+
+  return <>{n}{suffix}</>;
+};
 
 const About: React.FC = () => {
   const { t, language } = useLanguage();
@@ -14,14 +40,14 @@ const About: React.FC = () => {
 
   const stats = [
     { number: '3+', label: language === 'pt' ? 'Anos de Experiência' : 'Years Experience' },
-    { number: '15+', label: language === 'pt' ? 'Projetos Entregues' : 'Projects Delivered' },
+    { number: '20+', label: language === 'pt' ? 'Projetos Entregues' : 'Projects Delivered' },
     { number: '30+', label: language === 'pt' ? 'Tecnologias' : 'Technologies' },
-    { number: '2',   label: language === 'pt' ? 'Sistemas em Produção' : 'Production Systems' },
+    { number: '5+',  label: language === 'pt' ? 'Sistemas em Produção' : 'Production Systems' },
   ];
 
   const pills = [
-    { icon: '📍', text: language === 'pt' ? 'Guarujá, SP — Remoto' : 'Guarujá, SP — Remote' },
-    { icon: '💼', text: 'Powertec Tecnologia' },
+    { icon: '📍', text: language === 'pt' ? 'Guarujá, SP · Remoto' : 'Guarujá, SP · Remote' },
+    { icon: '💼', text: language === 'pt' ? 'Fundador · Nexio' : 'Founder · Nexio' },
     { icon: '🎓', text: language === 'pt' ? 'ADS · UNISANTA · 2026' : 'SysAnalysis · UNISANTA · 2026' },
   ];
 
@@ -44,7 +70,7 @@ const About: React.FC = () => {
                 </div>
                 <p className="about-profile-name">Lucas Kayck Franco Pinheiro</p>
                 <p className="about-profile-role">
-                  {language === 'pt' ? 'Engenheiro de Software · UI/UX' : 'Software Engineer · UI/UX'}
+                  {language === 'pt' ? 'Full-Stack · Fundador da Nexio' : 'Full-Stack · Nexio Founder'}
                 </p>
                 <span className="about-badge">
                   <span className="about-badge-dot" />
@@ -79,7 +105,9 @@ const About: React.FC = () => {
               <div ref={statsReveal.ref} className={`about-stats stagger-children ${statsReveal.isVisible ? 'visible' : ''}`}>
                 {stats.map((s) => (
                   <div key={s.label} className="stat-item">
-                    <div className="stat-number">{s.number}</div>
+                    <div className="stat-number">
+                      <CountUp value={s.number} play={statsReveal.isVisible} />
+                    </div>
                     <div className="stat-label">{s.label}</div>
                   </div>
                 ))}

@@ -1,18 +1,16 @@
 import React, { memo } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import { SiReact, SiTypescript, SiJavascript, SiHtml5, SiCss3, SiNodedotjs, SiGit, SiTailwindcss, SiNextdotjs, SiAngular, SiVuedotjs, SiFigma, SiPostgresql, SiSupabase, SiDocker, SiPrisma, SiGraphql, SiRedis, SiPhp, SiWordpress, SiVite, SiGithub } from 'react-icons/si';
-import { TbApi } from 'react-icons/tb';
+import { SiReact, SiTypescript, SiJavascript, SiHtml5, SiCss3, SiNodedotjs, SiGit, SiTailwindcss, SiNextdotjs, SiGo, SiAngular, SiVuedotjs, SiFigma, SiPostgresql, SiSupabase, SiDocker, SiPrisma, SiGraphql, SiRedis, SiPhp, SiWordpress } from 'react-icons/si';
 import '../styles/Skills.css';
 import '../styles/ScrollReveal.css';
 
 interface Skill { name: string; icon: React.ReactNode; color: string; level: number; }
 
 const Skills: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const titleReveal  = useScrollReveal({ threshold: 0.2 });
   const gridReveal   = useScrollReveal({ threshold: 0.08 });
-  const toolsReveal  = useScrollReveal({ threshold: 0.08 });
 
   const skills: Skill[] = [
     { name: 'React',      icon: <SiReact />,      color: '#61DAFB', level: 92 },
@@ -21,7 +19,8 @@ const Skills: React.FC = () => {
     { name: 'HTML5',      icon: <SiHtml5 />,       color: '#E34F26', level: 95 },
     { name: 'CSS3',       icon: <SiCss3 />,        color: '#1572B6', level: 90 },
     { name: 'Node.js',    icon: <SiNodedotjs />,   color: '#339933', level: 82 },
-    { name: 'Next.js',    icon: <SiNextdotjs />,   color: '#888888', level: 78 },
+    { name: 'Next.js',    icon: <SiNextdotjs />,   color: '#888888', level: 82 },
+    { name: 'Go',         icon: <SiGo />,          color: '#00ADD8', level: 72 },
     { name: 'Angular',    icon: <SiAngular />,     color: '#DD0031', level: 68 },
     { name: 'Vue.js',     icon: <SiVuedotjs />,    color: '#4FC08D', level: 65 },
     { name: 'Tailwind',   icon: <SiTailwindcss />, color: '#06B6D4', level: 90 },
@@ -35,31 +34,6 @@ const Skills: React.FC = () => {
     { name: 'Figma',      icon: <SiFigma />,       color: '#F24E1E', level: 80 },
     { name: 'Supabase',   icon: <SiSupabase />,    color: '#3ECF8E', level: 80 },
     { name: 'Git',        icon: <SiGit />,         color: '#F05032', level: 85 },
-  ];
-
-  const tools = [
-    { icon: <SiVite />,    label: 'Vite' },
-    { icon: <SiGithub />,  label: 'GitHub' },
-    { icon: <TbApi />,     label: 'REST' },
-    { label: 'GitHub Actions' },
-    { label: 'CI/CD' },
-    { label: 'Vercel' },
-    { label: 'Railway' },
-    { label: 'Render' },
-    { label: 'AWS EC2' },
-    { label: 'Azure' },
-    { label: 'SOLID' },
-    { label: 'Clean Arch.' },
-    { label: 'JWT / RBAC' },
-    { label: 'BullMQ' },
-    { label: 'Jest' },
-    { label: 'Cypress' },
-    { label: 'Playwright' },
-    { label: 'Zod' },
-    { label: 'face-api.js' },
-    { label: 'Power BI' },
-    { label: 'Linux' },
-    { label: 'Multer' },
   ];
 
   const hexToRgb = (hex: string) => {
@@ -103,25 +77,6 @@ const Skills: React.FC = () => {
               </div>
             );
           })}
-        </div>
-
-        {/* Tools & Others */}
-        <div ref={toolsReveal.ref} className={`skills-tools reveal ${toolsReveal.isVisible ? 'visible' : ''}`}>
-          <p className="skills-tools-label">
-            {language === 'pt' ? 'Ferramentas & Outros' : 'Tools & Others'}
-          </p>
-          <div className="skills-tools-list">
-            {tools.map((tool, i) => (
-              <span
-                key={i}
-                className="skills-tool-badge"
-                style={{ '--badge-delay': `${i * 0.04}s` } as React.CSSProperties}
-              >
-                {tool.icon && <span className="skills-tool-icon">{tool.icon}</span>}
-                {tool.label}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </section>

@@ -55,71 +55,76 @@ const Contact: React.FC = () => {
         <div className="contact-orb contact-orb-1" aria-hidden="true" />
         <div className="contact-orb contact-orb-2" aria-hidden="true" />
 
-        <div className="container">
+        <div className="container contact-inner">
 
-          {/* Eyebrow */}
-          <div
-            ref={eyebrowReveal.ref}
-            className={`contact-eyebrow reveal ${eyebrowReveal.isVisible ? 'visible' : ''}`}
-          >
-            <span className="contact-eyebrow-dot" />
-            {isEn ? 'Available for new projects' : 'Disponível para novos projetos'}
+          {/* ── LEFT: headline ── */}
+          <div className="contact-left">
+            <div
+              ref={eyebrowReveal.ref}
+              className={`contact-eyebrow reveal ${eyebrowReveal.isVisible ? 'visible' : ''}`}
+            >
+              <span className="contact-eyebrow-dot" />
+              {isEn ? 'Available for new projects' : 'Disponível para novos projetos'}
+            </div>
+
+            <div
+              ref={headlineReveal.ref}
+              className={`contact-headline-wrap stagger-children ${headlineReveal.isVisible ? 'visible' : ''}`}
+            >
+              {words.map((word, i) => (
+                <h2
+                  key={word}
+                  className={`contact-headline${i === words.length - 1 ? ' contact-headline--accent' : ''}`}
+                >
+                  {word}
+                </h2>
+              ))}
+            </div>
+
+            <p className="contact-lead">
+              {isEn
+                ? 'Got an idea, a product to build, or a role in mind? Let’s talk. I usually reply within a day.'
+                : 'Tem uma ideia, um produto pra tirar do papel ou uma vaga? Bora conversar. Respondo no mesmo dia.'}
+            </p>
           </div>
 
-          {/* Headline */}
-          <div
-            ref={headlineReveal.ref}
-            className={`contact-headline-wrap stagger-children ${headlineReveal.isVisible ? 'visible' : ''}`}
-          >
-            {words.map((word, i) => (
-              <h2
-                key={word}
-                className={`contact-headline${i === words.length - 1 ? ' contact-headline--accent' : ''}`}
-              >
-                {word}
-              </h2>
-            ))}
-          </div>
-
-          {/* Email CTA */}
+          {/* ── RIGHT: contact card ── */}
           <div
             ref={emailReveal.ref}
-            className={`contact-email-wrap reveal ${emailReveal.isVisible ? 'visible' : ''}`}
+            className={`contact-card reveal ${emailReveal.isVisible ? 'visible' : ''}`}
           >
+            <span className="contact-card-label">
+              {isEn ? 'Drop me a line' : 'Me manda um e-mail'}
+            </span>
+
             <a
               ref={emailMagnetic}
               href="mailto:lucas.kfrancopinheiro@gmail.com"
               className="contact-email-cta"
             >
-              <span className="contact-email-text">
-                lucas.kfrancopinheiro@gmail.com
-              </span>
+              <span className="contact-email-text">lucas.kfrancopinheiro@gmail.com</span>
               <span className="contact-email-icon" aria-hidden="true">
-                <ArrowUpRight size={32} strokeWidth={1.5} />
+                <ArrowUpRight size={22} strokeWidth={2} />
               </span>
             </a>
-          </div>
 
-          {/* Divider */}
-          <div className="contact-line" aria-hidden="true" />
-
-          {/* Social row */}
-          <div
-            ref={socialReveal.ref}
-            className={`contact-social-row stagger-children ${socialReveal.isVisible ? 'visible' : ''}`}
-          >
-            <a href="https://github.com/LuksFP" target="_blank" rel="noopener noreferrer" className="contact-social-btn">
-              <Github size={18} />GitHub
-            </a>
-            <a href="https://www.linkedin.com/in/lucas-kayck-franco-pinheiro-bb3971246/" target="_blank" rel="noopener noreferrer" className="contact-social-btn">
-              <Linkedin size={18} />LinkedIn
-            </a>
-            <a href="mailto:lucas.kfrancopinheiro@gmail.com" className="contact-social-btn">
-              <Mail size={18} />Email
-            </a>
+            <div
+              ref={socialReveal.ref}
+              className={`contact-social-row stagger-children ${socialReveal.isVisible ? 'visible' : ''}`}
+            >
+              <a href="https://github.com/LuksFP" target="_blank" rel="noopener noreferrer" className="contact-social-btn">
+                <Github size={18} />GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/lucas-kayck-franco-pinheiro-bb3971246/" target="_blank" rel="noopener noreferrer" className="contact-social-btn">
+                <Linkedin size={18} />LinkedIn
+              </a>
+              <a href="mailto:lucas.kfrancopinheiro@gmail.com" className="contact-social-btn">
+                <Mail size={18} />Email
+              </a>
+            </div>
 
             <div className="contact-meta-strip">
-              <span><MapPin size={13} />{isEn ? 'Brazil, Remote' : 'Brasil, Remoto'}</span>
+              <span><MapPin size={13} />{isEn ? 'Brazil · Remote' : 'Brasil · Remoto'}</span>
               <span className="contact-meta-dot" />
               <span><Clock size={13} />{isEn ? 'Replies within 24h' : 'Respondo em 24h'}</span>
             </div>

@@ -12,6 +12,7 @@ import Experience from '../components/Experience';
 import Loader from '../components/Loader';
 import Spotlight from '../components/Spotlight';
 import SectionDivider from '../components/SectionDivider';
+import ScrollToTop from '../components/ScrollToTop';
 
 const Index: React.FC = () => {
   const { language } = useLanguage();
@@ -40,6 +41,7 @@ const Index: React.FC = () => {
         <Skills />
         <Contact />
       </main>
+      <ScrollToTop />
     </>
   );
 };

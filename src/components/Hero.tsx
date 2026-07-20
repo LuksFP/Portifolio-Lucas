@@ -5,17 +5,17 @@ import MatrixRain from './MatrixRain';
 import '../styles/Hero.css';
 
 const ROLES_PT = [
-  'Engenheiro Full-Stack',
-  'React & TypeScript Dev',
-  'Arquiteto de Interfaces',
-  'Criador de Experiências',
+  'Desenvolvedor Full-Stack',
+  'Fundador da Nexio',
+  'Next.js · React · Go',
+  'Do banco ao browser',
 ];
 
 const ROLES_EN = [
-  'Full-Stack Engineer',
-  'React & TypeScript Dev',
-  'Interface Architect',
-  'Experience Craftsman',
+  'Full-Stack Developer',
+  'Founder of Nexio',
+  'Next.js · React · Go',
+  'From database to browser',
 ];
 
 const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%';
@@ -30,7 +30,7 @@ const CodeDecoration: React.FC = () => (
       <span className="hero-code-filename">portfolio.ts</span>
     </div>
     <pre className="hero-code-content">
-      <span className="code-comment">{'// Lucas Kayck — Dev Profile'}</span>{'\n'}
+      <span className="code-comment">{'// Lucas Kayck, full-stack dev'}</span>{'\n'}
       <span className="code-keyword">const</span>{' '}
       <span className="code-variable">dev</span>{' '}
       <span className="code-operator">=</span>{' '}{'{'}{'\n'}
@@ -44,10 +44,10 @@ const CodeDecoration: React.FC = () => (
       <span className="code-operator">,</span>{'\n'}
       {'  '}<span className="code-key">stack</span>
       <span className="code-operator">:</span>{' '}
-      <span className="code-bracket">['</span>
-      <span className="code-string">"React"</span>
+      <span className="code-bracket">[</span>
+      <span className="code-string">"Next.js"</span>
       <span className="code-bracket">, </span>
-      <span className="code-string">"TS"</span>
+      <span className="code-string">"Go"</span>
       <span className="code-bracket">]</span>
       <span className="code-operator">,</span>{'\n'}
       {'  '}<span className="code-key">available</span>
@@ -102,8 +102,6 @@ const Hero: React.FC = () => {
   const [roleVisible, setRoleVisible] = useState(true);
   const [displayName, setDisplayName] = useState(NAME);
   const scrambleRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const cursorDot = useRef<HTMLDivElement>(null);
-  const cursorRing = useRef<HTMLDivElement>(null);
 
   const btnPrimary = useMagnetic(0.32);
   const btnSecondary = useMagnetic(0.28);
@@ -152,62 +150,12 @@ const Hero: React.FC = () => {
     return () => { if (scrambleRef.current) clearInterval(scrambleRef.current); };
   }, []);
 
-  // Custom cursor
-  useEffect(() => {
-    const dot  = cursorDot.current;
-    const ring = cursorRing.current;
-    if (!dot || !ring) return;
-
-    let ringX = 0, ringY = 0;
-    let mouseX = 0, mouseY = 0;
-    let rafId: number;
-
-    const onMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      dot.style.left = `${mouseX}px`;
-      dot.style.top  = `${mouseY}px`;
-    };
-
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-    const animateRing = () => {
-      ringX = lerp(ringX, mouseX, 0.12);
-      ringY = lerp(ringY, mouseY, 0.12);
-      ring.style.left = `${ringX}px`;
-      ring.style.top  = `${ringY}px`;
-      rafId = requestAnimationFrame(animateRing);
-    };
-    rafId = requestAnimationFrame(animateRing);
-
-    const onEnter = () => { dot.classList.add('hover'); ring.classList.add('hover'); };
-    const onLeave = () => { dot.classList.remove('hover'); ring.classList.remove('hover'); };
-
-    const interactables = document.querySelectorAll('a, button, [role="button"]');
-    interactables.forEach((el) => {
-      el.addEventListener('mouseenter', onEnter);
-      el.addEventListener('mouseleave', onLeave);
-    });
-
-    window.addEventListener('mousemove', onMove);
-    return () => {
-      window.removeEventListener('mousemove', onMove);
-      cancelAnimationFrame(rafId);
-      interactables.forEach((el) => {
-        el.removeEventListener('mouseenter', onEnter);
-        el.removeEventListener('mouseleave', onLeave);
-      });
-    };
-  }, []);
-
   const scrollToSection = useCallback((id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
   return (
     <>
-      <div ref={cursorDot}  className="cursor-dot"  />
-      <div ref={cursorRing} className="cursor-ring" />
-
       <section id="home" className="hero">
         {/* Parallax + background */}
         <div className="hero-parallax">
@@ -287,7 +235,7 @@ const Hero: React.FC = () => {
             </div>
             <div className="hero-stat-divider" />
             <div className="hero-stat">
-              <span className="hero-stat-number">15+</span>
+              <span className="hero-stat-number">20+</span>
               <span className="hero-stat-label">{language === 'pt' ? 'Projetos' : 'Projects'}</span>
             </div>
             <div className="hero-stat-divider" />
