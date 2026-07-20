@@ -102,17 +102,6 @@ const STATIC_PROJECTS: Project[] = [
     updated_at: '2026-07-03T00:00:00Z',
   },
   {
-    id: 'static-8',
-    title: 'Mapa de Segurança de Guarujá',
-    description: 'Mapa interativo de segurança da cidade de Guarujá-SP com zonas de risco e pontos cadastráveis, renderizado com Leaflet sobre dados no Supabase. Painel administrativo com login para cadastro e edição de zonas e pontos pela equipe.',
-    github_url: null,
-    demo_url: null,
-    tech_stack: ['React', 'TypeScript', 'Leaflet', 'Supabase', 'PostgreSQL'],
-    image_url: '/covers/static-8.png',
-    created_at: '2026-06-10T00:00:00Z',
-    updated_at: '2026-06-10T00:00:00Z',
-  },
-  {
     id: 'static-9',
     title: 'Nexio: Agente de Prospecção com IA',
     description: 'Agente de prospecção comercial para a Baixada Santista: coleta e enriquecimento de leads, qualificação e geração de abordagens com IA seguindo a metodologia SPIN Selling. Backend Python/FastAPI com LLM via Groq (Llama) e interface web local para operação pelo cliente.',
